@@ -1,0 +1,1202 @@
+{
+  "browser": "149.0.7827.55",
+  "executed_count": 22,
+  "passed": 22,
+  "failed": 0,
+  "cases": [
+    {
+      "name": "Local model, SIMD WASM and real blank-frame inference initialize",
+      "status": "pass",
+      "milliseconds": 1523,
+      "detail": {
+        "initialization_requests": [
+          "/browser-demo/",
+          "/browser-demo/style.css",
+          "/browser-demo/app.mjs",
+          "/browser-demo/vendor/mediapipe/vision_bundle.mjs",
+          "/browser-demo/metrics.mjs",
+          "/browser-demo/sample.mjs",
+          "/browser-demo/report.mjs",
+          "/browser-demo/report-pdf.mjs",
+          "/browser-demo/vendor/pdf-lib/pdf-lib.esm.min.mjs",
+          "/browser-demo/standard-21.json",
+          "/browser-demo/vendor/mediapipe/models/face_landmarker.task",
+          "/browser-demo/vendor/mediapipe/wasm/vision_wasm_internal.js",
+          "/browser-demo/vendor/mediapipe/wasm/vision_wasm_internal.wasm"
+        ],
+        "networking_disabled_after_readiness": true
+      }
+    },
+    {
+      "name": "Empty session report and JSON actions are disabled",
+      "status": "pass",
+      "milliseconds": 9,
+      "detail": null
+    },
+    {
+      "name": "Ready overlays and touch targets fit all five viewports",
+      "status": "pass",
+      "milliseconds": 1169,
+      "detail": {
+        "stage": "ready",
+        "viewports": [
+          {
+            "width": 360,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 286,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 286,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 286,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 286,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          },
+          {
+            "width": 390,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 316,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 316,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 316,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 316,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          },
+          {
+            "width": 400,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 326,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 326,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 326,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 326,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          },
+          {
+            "width": 768,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 201.640625,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 142.703125,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 205.203125,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 182.625,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          },
+          {
+            "width": 1440,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 201.640625,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 142.703125,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 205.203125,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 182.625,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Offline sample updates all four metrics and draws time-series traces",
+      "status": "pass",
+      "milliseconds": 7032,
+      "detail": {
+        "first": [
+          "1.980° spread",
+          "20.1blinks/min",
+          "-0.146eye widths",
+          "3.341% face width/s"
+        ],
+        "second": [
+          "1.937° spread",
+          "18.0blinks/min",
+          "-0.169eye widths",
+          "4.550% face width/s"
+        ],
+        "trace_pixels_present": [
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "name": "Synthetic caption and running status fit all five viewports",
+      "status": "pass",
+      "milliseconds": 62,
+      "detail": {
+        "stage": "sample",
+        "viewports": [
+          {
+            "width": 360,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 286,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 286,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 286,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 286,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          },
+          {
+            "width": 390,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 316,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 316,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 316,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 316,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          },
+          {
+            "width": 400,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 326,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 326,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 326,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 326,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          },
+          {
+            "width": 768,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 201.640625,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 142.703125,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 205.203125,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 182.625,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          },
+          {
+            "width": 1440,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 201.640625,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 142.703125,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 205.203125,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 182.625,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Full 30-second sample stops automatically",
+      "status": "pass",
+      "milliseconds": 23089,
+      "detail": {
+        "frames": "859 frames",
+        "time": "30.0 s tracked"
+      }
+    },
+    {
+      "name": "Report contains four measured proxies and all 21 unavailable SDK slots",
+      "status": "pass",
+      "milliseconds": 580,
+      "detail": null
+    },
+    {
+      "name": "JSON download matches the frozen synthetic report and standard contract",
+      "status": "pass",
+      "milliseconds": 51,
+      "detail": {
+        "filename": "micromotion-demo-report.json",
+        "valid_frames": 859,
+        "blink_count": 10,
+        "items": 21
+      }
+    },
+    {
+      "name": "HTML is standalone and matches every JSON field and all 72 visible report fields",
+      "status": "pass",
+      "milliseconds": 694,
+      "detail": {
+        "visible_fields_compared": 72,
+        "json_leaf_values_compared": 668,
+        "metric_values": 4,
+        "metadata": 5,
+        "table_cells": 63,
+        "external_requests": 0,
+        "widths": [
+          360,
+          390,
+          400,
+          768,
+          1440
+        ]
+      }
+    },
+    {
+      "name": "Offline PDF download parses and matches the frozen values and v1.0 references",
+      "status": "pass",
+      "milliseconds": 912,
+      "detail": {
+        "pages": 6,
+        "section_titles": 8,
+        "proxy_values_compared": 4,
+        "proxy_statistics_compared": 16,
+        "proxy_interpretations_compared": 4,
+        "session_fields_compared": 8,
+        "sdk_rows": 21,
+        "sdk_names_compared": 21,
+        "sdk_ranges_compared": 21,
+        "source_standard_rows_compared": 21,
+        "sdk_uncomputed_results": 21,
+        "footers": 6,
+        "text_spans_within_page_bounds": 231,
+        "brand_and_sample_scans": {
+          "brands": {
+            "terms": 9,
+            "hits": 0
+          },
+          "private_identity": {
+            "terms": 3,
+            "hits": 0
+          },
+          "sample_identity": {
+            "terms": 10,
+            "hits": 0
+          },
+          "sample_distinct_decimal_values": {
+            "terms": 51,
+            "hits": 0
+          }
+        },
+        "active_content": 0,
+        "metadata_unbranded": true,
+        "pdf_bytes": 10947,
+        "parser": "PyMuPDF 2.2"
+      }
+    },
+    {
+      "name": "Rendered report layout and touch targets fit all five viewports",
+      "status": "pass",
+      "milliseconds": 2387,
+      "detail": {
+        "stage": "report",
+        "viewports": [
+          {
+            "width": 360,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 286,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 286,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 286,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 286,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          },
+          {
+            "width": 390,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 316,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 316,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 316,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 316,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          },
+          {
+            "width": 400,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 326,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 326,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 326,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 326,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          },
+          {
+            "width": 768,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 201.640625,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 142.703125,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 205.203125,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 182.625,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          },
+          {
+            "width": 1440,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 201.640625,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 142.703125,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 205.203125,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 182.625,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Report renderer handles unavailable, signed, constant-range and escaped values",
+      "status": "pass",
+      "milliseconds": 7,
+      "detail": {
+        "unavailable": "Unavailable — Insufficient valid tracking, closed eyes, or no current face",
+        "unavailableBars": 0,
+        "signedBar": "25",
+        "constantMarker": "49.5",
+        "source": "Camera session",
+        "injected": 0,
+        "dataEqual": true
+      }
+    },
+    {
+      "name": "PDF failure permits retry and a restarted session cancels an in-flight export",
+      "status": "pass",
+      "milliseconds": 703,
+      "detail": {
+        "injected_failures_recovered": 1,
+        "retry_downloads": 1,
+        "stale_downloads": 0
+      }
+    },
+    {
+      "name": "Restart resets readings, report and download availability",
+      "status": "pass",
+      "milliseconds": 187,
+      "detail": null
+    },
+    {
+      "name": "Denied camera permission has an explicit error and no fabricated readings",
+      "status": "pass",
+      "milliseconds": 126,
+      "detail": null
+    },
+    {
+      "name": "Camera caption and denied status fit all five viewports",
+      "status": "pass",
+      "milliseconds": 74,
+      "detail": {
+        "stage": "denied",
+        "viewports": [
+          {
+            "width": 360,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 286,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 286,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 286,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 286,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          },
+          {
+            "width": 390,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 316,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 316,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 316,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 316,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          },
+          {
+            "width": 400,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 326,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 326,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 326,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 326,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          },
+          {
+            "width": 768,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 201.640625,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 142.703125,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 205.203125,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 182.625,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          },
+          {
+            "width": 1440,
+            "overflow": false,
+            "separateCaption": true,
+            "clipped": [],
+            "buttons": [
+              {
+                "id": "sample",
+                "width": 180.59375,
+                "height": 45
+              },
+              {
+                "id": "camera",
+                "width": 115.671875,
+                "height": 45
+              },
+              {
+                "id": "stop",
+                "width": 65.328125,
+                "height": 45
+              },
+              {
+                "id": "generate",
+                "width": 201.640625,
+                "height": 45
+              },
+              {
+                "id": "download",
+                "width": 142.703125,
+                "height": 45
+              },
+              {
+                "id": "download-html",
+                "width": 205.203125,
+                "height": 45
+              },
+              {
+                "id": "download-pdf",
+                "width": 182.625,
+                "height": 45
+              }
+            ],
+            "placeholderContained": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Blank video stream traverses real camera inference and stops its track",
+      "status": "pass",
+      "milliseconds": 447,
+      "detail": "Injected blank video only; real MediaPipe inference, no physical webcam or face accuracy claim."
+    },
+    {
+      "name": "Late camera permission resolution cannot override a newer sample session",
+      "status": "pass",
+      "milliseconds": 342,
+      "detail": null
+    },
+    {
+      "name": "Hiding a page stops an active camera stream",
+      "status": "pass",
+      "milliseconds": 308,
+      "detail": null
+    },
+    {
+      "name": "No post-initialization requests, external requests, page errors or CSP violations",
+      "status": "pass",
+      "milliseconds": 6,
+      "detail": {
+        "post_initialization_requests": 0,
+        "external_requests": 0,
+        "page_errors": 0,
+        "csp_violations": 0
+      }
+    },
+    {
+      "name": "Non-SIMD fallback initializes from vendored assets",
+      "status": "pass",
+      "milliseconds": 2796,
+      "detail": {
+        "selected_wasm": "vision_wasm_nosimd_internal.wasm"
+      }
+    },
+    {
+      "name": "Model load failure disables camera while retaining explicit synthetic mode",
+      "status": "pass",
+      "milliseconds": 1099,
+      "detail": "Deliberate model-request abort; expected degradation, not a product failure."
+    }
+  ],
+  "coverage": [
+    "Local model, SIMD WASM and real blank-frame inference initialize",
+    "Empty session report and JSON actions are disabled",
+    "Ready overlays and touch targets fit all five viewports",
+    "Offline sample updates all four metrics and draws time-series traces",
+    "Synthetic caption and running status fit all five viewports",
+    "Full 30-second sample stops automatically",
+    "Report contains four measured proxies and all 21 unavailable SDK slots",
+    "JSON download matches the frozen synthetic report and standard contract",
+    "HTML is standalone and matches every JSON field and all 72 visible report fields",
+    "Offline PDF download parses and matches the frozen values and v1.0 references",
+    "Rendered report layout and touch targets fit all five viewports",
+    "Report renderer handles unavailable, signed, constant-range and escaped values",
+    "PDF failure permits retry and a restarted session cancels an in-flight export",
+    "Restart resets readings, report and download availability",
+    "Denied camera permission has an explicit error and no fabricated readings",
+    "Camera caption and denied status fit all five viewports",
+    "Blank video stream traverses real camera inference and stops its track",
+    "Late camera permission resolution cannot override a newer sample session",
+    "Hiding a page stops an active camera stream",
+    "No post-initialization requests, external requests, page errors or CSP violations",
+    "Non-SIMD fallback initializes from vendored assets",
+    "Model load failure disables camera while retaining explicit synthetic mode"
+  ],
+  "uncovered": [
+    "Physical webcam and real-person landmark/metric validity",
+    "Accuracy, calibration, demographic or clinical validation",
+    "Safari, Firefox and physical mobile browsers",
+    "Cross-origin iframe permissions and production hosting"
+  ],
+  "failure_classification": {
+    "product_defects": 0,
+    "test_infrastructure_failures": 0,
+    "untriaged_failures": 0,
+    "expected_negative_cases": [
+      "Camera permission denial",
+      "No face in blank video",
+      "Late camera resolution",
+      "Model asset load failure"
+    ]
+  },
+  "external_requests": [],
+  "post_readiness_requests": [],
+  "page_errors": [],
+  "csp_violations": [],
+  "runtime_messages": [
+    "W1126 07:34:49.300000 2225904 face_landmarker_graph.cc:180] Sets FaceBlendshapesGraph acceleration to xnnpack by default.",
+    "W1126 07:34:49.392000 2225904 gl_context.cc:1118] OpenGL error checking is disabled",
+    "INFO: Created TensorFlow Lite XNNPACK delegate for CPU.",
+    "W1126 07:34:49.436000 2225904 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.",
+    "W1126 07:34:49.486000 2225904 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.",
+    "[.WebGL-0x2bcc06b67c00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+  ]
+}

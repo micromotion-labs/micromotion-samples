@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict';
 import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { execFileSync } from 'node:child_process';
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE ? pathToFileURL(process.env.PLAYWRIGHT_MODULE).href : 'playwright');
 const origin = process.env.DEMO_ORIGIN || 'http://127.0.0.1:8765';
 const output = process.env.DEMO_EVIDENCE ? pathToFileURL(process.env.DEMO_EVIDENCE.replace(/\/$/, '') + '/') : new URL('../evidence/', import.meta.url); await mkdir(output, { recursive: true });
@@ -66,7 +67,7 @@ try {
     return { initialization_requests: requests.slice(), networking_disabled_after_readiness: true };
   });
   await check('Empty session report and JSON actions are disabled', async () => {
-    assert.equal(await page.isDisabled('#generate'), true); assert.equal(await page.isDisabled('#download'), true); assert.equal(await page.isDisabled('#download-html'), true);
+    assert.equal(await page.isDisabled('#generate'), true); assert.equal(await page.isDisabled('#download'), true); assert.equal(await page.isDisabled('#download-html'), true); assert.equal(await page.isDisabled('#download-pdf'), true);
   });
   await check('Ready overlays and touch targets fit all five viewports', () => layout('ready'));
   await check('Offline sample updates all four metrics and draws time-series traces', async () => {
@@ -137,6 +138,15 @@ try {
     const leaves = v => v && typeof v === 'object' ? Object.values(v).reduce((n,x) => n+leaves(x),0) : 1;
     await c.close(); return { visible_fields_compared: 72, json_leaf_values_compared: leaves(data), metric_values: 4, metadata: 5, table_cells: 63, external_requests: 0, widths };
   });
+  await check('Offline PDF download parses and matches the frozen values and v1.0 references', async () => {
+    const promise = page.waitForEvent('download'); await page.click('#download-pdf'); const download = await promise;
+    assert.equal(download.suggestedFilename(), 'session-report.pdf');
+    const pdfPath = fileURLToPath(new URL('sample-report.pdf', output)); await download.saveAs(pdfPath);
+    const detail = JSON.parse(execFileSync(process.env.PDF_PYTHON || 'python3', [fileURLToPath(new URL('pdf-verify.py', import.meta.url)), pdfPath, fileURLToPath(new URL('sample-report.json', output))], { encoding: 'utf8' }));
+    await writeFile(new URL('pdf-verification.json', output), JSON.stringify(detail, null, 2) + '\n');
+    assert.equal(await page.isDisabled('#download-pdf'), false);
+    return detail;
+  });
   await check('Rendered report layout and touch targets fit all five viewports', () => layout('report'));
   await check('Report renderer handles unavailable, signed, constant-range and escaped values', async () => {
     const result = await page.evaluate(async () => {
@@ -163,8 +173,37 @@ try {
     assert.equal(result.source, 'Camera session'); assert.equal(result.injected, 0); assert.equal(result.dataEqual, true);
     return result;
   });
+  await check('PDF failure permits retry and a restarted session cancels an in-flight export', async () => {
+    await page.evaluate(async () => {
+      const { PDFDocument } = await import('./vendor/pdf-lib/pdf-lib.esm.min.mjs');
+      window.restorePdfCreate = PDFDocument.create;
+      PDFDocument.create = async () => { throw new Error('Injected export failure'); };
+    });
+    await page.click('#download-pdf');
+    await page.waitForFunction(() => document.querySelector('#status').textContent.includes('PDF export could not finish'));
+    assert.equal(await page.isDisabled('#download-pdf'), false);
+    await page.evaluate(async () => {
+      const { PDFDocument } = await import('./vendor/pdf-lib/pdf-lib.esm.min.mjs');
+      PDFDocument.create = window.restorePdfCreate;
+    });
+    const retry = page.waitForEvent('download'); await page.click('#download-pdf');
+    assert.equal((await retry).suggestedFilename(), 'session-report.pdf');
+    const lateDownloads = []; const listener = d => lateDownloads.push(d.suggestedFilename());
+    page.on('download', listener);
+    await page.evaluate(async () => {
+      const { PDFDocument } = await import('./vendor/pdf-lib/pdf-lib.esm.min.mjs');
+      PDFDocument.create = async (...args) => { await new Promise(resolve => { window.releasePdf = resolve; }); return window.restorePdfCreate(...args); };
+      document.querySelector('#download-pdf').click();
+      document.querySelector('#sample').click();
+      PDFDocument.create = window.restorePdfCreate; window.releasePdf();
+    });
+    await page.waitForTimeout(500);
+    assert.deepEqual(lateDownloads, []); page.off('download', listener);
+    assert.equal(await page.isDisabled('#download-pdf'), true);
+    return { injected_failures_recovered: 1, retry_downloads: 1, stale_downloads: 0 };
+  });
   await check('Restart resets readings, report and download availability', async () => {
-    await page.click('#sample'); assert.equal(await page.isVisible('#report'), false); assert.equal(await page.isDisabled('#download'), true); assert.equal(await page.isDisabled('#download-html'), true);
+    await page.click('#sample'); assert.equal(await page.isVisible('#report'), false); assert.equal(await page.isDisabled('#download'), true); assert.equal(await page.isDisabled('#download-html'), true); assert.equal(await page.isDisabled('#download-pdf'), true);
     assert.equal(await page.textContent('#blink_rate'), '—');
     await page.click('#stop');
   });

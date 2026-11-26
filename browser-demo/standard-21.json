@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "issued_at": "2026-11-12",
   "source": "micromotion_21_standard.json",
-  "scope": "Identity metadata only; no SDK computation or interpretation logic.",
+  "scope": "Identity metadata and v1.0 reference constants only; no SDK computation or interpretation logic.",
   "required_keys": [
     "index",
     "key",
@@ -35,7 +35,13 @@
       "name_cn": "敌对",
       "direction": "NEG",
       "channel": "C1",
-      "name_en": "Hostility"
+      "name_en": "Hostility",
+      "standard_reference": {
+        "min": 15.0,
+        "max": 45.0,
+        "status": "reference",
+        "empirical_max": null
+      }
     },
     {
       "index": 2,
@@ -44,7 +50,13 @@
       "name_cn": "压力",
       "direction": "NEG",
       "channel": "C1",
-      "name_en": "Stress"
+      "name_en": "Stress",
+      "standard_reference": {
+        "min": 10.0,
+        "max": 40.0,
+        "status": "reference",
+        "empirical_max": null
+      }
     },
     {
       "index": 3,
@@ -53,7 +65,13 @@
       "name_cn": "焦虑",
       "direction": "NEG",
       "channel": "C1",
-      "name_en": "Anxiety"
+      "name_en": "Anxiety",
+      "standard_reference": {
+        "min": 10.0,
+        "max": 38.0,
+        "status": "reference",
+        "empirical_max": null
+      }
     },
     {
       "index": 4,
@@ -62,7 +80,13 @@
       "name_cn": "负面情绪",
       "direction": "NEG",
       "channel": "C1",
-      "name_en": "Negative emotion"
+      "name_en": "Negative emotion",
+      "standard_reference": {
+        "min": 12.0,
+        "max": 42.0,
+        "status": "reference",
+        "empirical_max": null
+      }
     },
     {
       "index": 5,
@@ -71,7 +95,13 @@
       "name_cn": "平衡",
       "direction": "NEU",
       "channel": "C1",
-      "name_en": "Balance"
+      "name_en": "Balance",
+      "standard_reference": {
+        "min": 25.0,
+        "max": 65.0,
+        "status": "reference",
+        "empirical_max": null
+      }
     },
     {
       "index": 6,
@@ -80,7 +110,13 @@
       "name_cn": "自信",
       "direction": "POS",
       "channel": "C1",
-      "name_en": "Confidence"
+      "name_en": "Confidence",
+      "standard_reference": {
+        "min": 45.0,
+        "max": 80.0,
+        "status": "reference",
+        "empirical_max": null
+      }
     },
     {
       "index": 7,
@@ -89,7 +125,13 @@
       "name_cn": "活力",
       "direction": "POS",
       "channel": "C1",
-      "name_en": "Vitality"
+      "name_en": "Vitality",
+      "standard_reference": {
+        "min": 35.0,
+        "max": 78.0,
+        "status": "reference",
+        "empirical_max": null
+      }
     },
     {
       "index": 8,
@@ -98,7 +140,13 @@
       "name_cn": "自我调节",
       "direction": "POS",
       "channel": "C1",
-      "name_en": "Self-regulation"
+      "name_en": "Self-regulation",
+      "standard_reference": {
+        "min": 40.0,
+        "max": 80.0,
+        "status": "reference",
+        "empirical_max": null
+      }
     },
     {
       "index": 9,
@@ -107,7 +155,13 @@
       "name_cn": "抑制",
       "direction": "POS",
       "channel": "C1",
-      "name_en": "Inhibition"
+      "name_en": "Inhibition",
+      "standard_reference": {
+        "min": 35.0,
+        "max": 75.0,
+        "status": "reference",
+        "empirical_max": null
+      }
     },
     {
       "index": 10,
@@ -116,7 +170,13 @@
       "name_cn": "情绪稳定性",
       "direction": "POS",
       "channel": "C1",
-      "name_en": "Emotional stability"
+      "name_en": "Emotional stability",
+      "standard_reference": {
+        "min": 45.0,
+        "max": 85.0,
+        "status": "reference",
+        "empirical_max": null
+      }
     },
     {
       "index": 11,
@@ -125,7 +185,13 @@
       "name_cn": "消沉",
       "direction": "NEG",
       "channel": "C1",
-      "name_en": "Dejection"
+      "name_en": "Dejection",
+      "standard_reference": {
+        "min": 10.0,
+        "max": 40.0,
+        "status": "reference",
+        "empirical_max": null
+      }
     },
     {
       "index": 12,
@@ -134,7 +200,13 @@
       "name_cn": "自我满意度",
       "direction": "POS",
       "channel": "C1",
-      "name_en": "Self-satisfaction"
+      "name_en": "Self-satisfaction",
+      "standard_reference": {
+        "min": 40.0,
+        "max": 80.0,
+        "status": "provisional",
+        "empirical_max": null
+      }
     },
     {
       "index": 13,
@@ -143,7 +215,13 @@
       "name_cn": "脑健康",
       "direction": "NEU",
       "channel": "C1",
-      "name_en": "Brain health"
+      "name_en": "Brain health",
+      "standard_reference": {
+        "min": -5.0,
+        "max": 5.0,
+        "status": "reference",
+        "empirical_max": null
+      }
     },
     {
       "index": 14,
@@ -152,7 +230,13 @@
       "name_cn": "集中度",
       "direction": "POS",
       "channel": "C1",
-      "name_en": "Concentration"
+      "name_en": "Concentration",
+      "standard_reference": {
+        "min": 20.0,
+        "max": 50.0,
+        "status": "reference",
+        "empirical_max": null
+      }
     },
     {
       "index": 15,
@@ -161,7 +245,13 @@
       "name_cn": "活力度",
       "direction": "NEU",
       "channel": "C2",
-      "name_en": "Activity level"
+      "name_en": "Activity level",
+      "standard_reference": {
+        "min": 0.0,
+        "max": 6.5,
+        "status": "reference",
+        "empirical_max": 6.5
+      }
     },
     {
       "index": 16,
@@ -170,7 +260,13 @@
       "name_cn": "IE 相关性",
       "direction": "NEU",
       "channel": "C3",
-      "name_en": "IE correlation"
+      "name_en": "IE correlation",
+      "standard_reference": {
+        "min": 10.0,
+        "max": 20.0,
+        "status": "reference",
+        "empirical_max": null
+      }
     },
     {
       "index": 17,
@@ -179,7 +275,13 @@
       "name_cn": "内部编号 A17",
       "direction": "RAW",
       "channel": "C2",
-      "name_en": "Internal A17"
+      "name_en": "Internal A17",
+      "standard_reference": {
+        "min": null,
+        "max": null,
+        "status": "not_established",
+        "empirical_max": null
+      }
     },
     {
       "index": 18,
@@ -188,7 +290,13 @@
       "name_cn": "内部编号 A18",
       "direction": "RAW",
       "channel": "C2",
-      "name_en": "Internal A18"
+      "name_en": "Internal A18",
+      "standard_reference": {
+        "min": null,
+        "max": null,
+        "status": "not_established",
+        "empirical_max": null
+      }
     },
     {
       "index": 19,
@@ -197,7 +305,13 @@
       "name_cn": "内部编号 A22",
       "direction": "RAW",
       "channel": "C2",
-      "name_en": "Internal A22"
+      "name_en": "Internal A22",
+      "standard_reference": {
+        "min": null,
+        "max": null,
+        "status": "not_established",
+        "empirical_max": 53.6
+      }
     },
     {
       "index": 20,
@@ -206,7 +320,13 @@
       "name_cn": "内部编号 A23",
       "direction": "RAW",
       "channel": "C2",
-      "name_en": "Internal A23"
+      "name_en": "Internal A23",
+      "standard_reference": {
+        "min": null,
+        "max": null,
+        "status": "not_established",
+        "empirical_max": 52.7
+      }
     },
     {
       "index": 21,
@@ -215,7 +335,13 @@
       "name_cn": "内部编号 A24",
       "direction": "RAW",
       "channel": "C2",
-      "name_en": "Internal A24"
+      "name_en": "Internal A24",
+      "standard_reference": {
+        "min": null,
+        "max": null,
+        "status": "not_established",
+        "empirical_max": 6.5
+      }
     }
   ]
 }

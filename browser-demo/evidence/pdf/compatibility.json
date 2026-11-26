@@ -1,0 +1,10 @@
+{
+  "unchanged_render_measurement_and_css": {
+    "micromotion-samples/browser-demo/report.mjs": true,
+    "micromotion-samples/browser-demo/metrics.mjs": true,
+    "micromotion-samples/browser-demo/style.css": true,
+    "sag/static/solutions-source/assets/demo/report.mjs": true,
+    "sag/static/solutions-source/assets/demo/metrics.mjs": true,
+    "sag/static/solutions-source/assets/demo/style.css": true
+  }
+}

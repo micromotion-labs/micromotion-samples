@@ -1,0 +1,11 @@
+{
+  "baseline": "16406c954d748d08e256f54b5cda163e27200b44",
+  "scope": "tracked and non-ignored files, binary bytes included",
+  "markers": 3,
+  "files_scanned": 103,
+  "changed_files_scanned": 48,
+  "changed_file_hits": 0,
+  "existing_hits": 0,
+  "private_reference_PDF_files": 0,
+  "findings": []
+}

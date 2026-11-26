@@ -1,0 +1,19 @@
+✔ stationary geometry yields zero motion without inventing initial values (48.232918ms)
+✔ 30-second synthetic fixture measures ten completed blinks (275.114825ms)
+✔ pixel-aspect handling gives equivalent values across normalized resolutions (10.090072ms)
+✔ jitter removes translation, uniform scale and in-plane roll (0.798971ms)
+✔ lost face clears current values and breaks blink/motion continuity (0.655135ms)
+✔ invalid, degenerate and duplicate frames cannot poison statistics (3.769655ms)
+✔ long gaps and prolonged eye closure do not create false blinks (3.893881ms)
+✔ report preserves all standard IDs and required fields without false equivalence (1.310319ms)
+✔ PDF preserves frozen data and renders short-camera without invented values (604.646282ms)
+✔ PDF preserves frozen data and renders lost-tracking without invented values (325.183763ms)
+✔ PDF preserves frozen data and renders signed-and-constant without invented values (325.70787ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1510.943744

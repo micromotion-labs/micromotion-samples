@@ -1,0 +1,77 @@
+{
+  "final_org": {
+    "unit": {
+      "executed": 11,
+      "passed": 11,
+      "failed": 0
+    },
+    "static": {
+      "executed": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    "browser": {
+      "executed": 22,
+      "passed": 22,
+      "failed": 0
+    },
+    "total": 38
+  },
+  "sag": {
+    "build_successes": 2,
+    "check_successes": 2,
+    "unit": {
+      "executed": 51,
+      "passed": 51,
+      "failed": 0
+    },
+    "browser": {
+      "executed": 64,
+      "passed": 64,
+      "failed": 0
+    }
+  },
+  "development_issues": [
+    {
+      "category": "test_code",
+      "count": 1,
+      "detail": "Preflight parser had a parenthesis syntax error; corrected before its successful verification."
+    },
+    {
+      "category": "test_policy",
+      "count": 1,
+      "detail": "Static account-link scanner initially flagged the unmodified PDF library upstream URL; added a narrowly scoped file/domain/account exception; vendored hash remains checked. Initial JSON retained."
+    },
+    {
+      "category": "orchestration",
+      "count": 1,
+      "detail": "First asset copy attempted browser-demo/LICENSE; the existing sync uses repository-root LICENSE. Corrected mapping, recopied all 22 assets, reran build and check."
+    }
+  ],
+  "product_defects": 0,
+  "unresolved_failures": 0,
+  "intentional_fault_injection": {
+    "pdf_creation_failure": 1,
+    "recovered": true,
+    "counted_as_failure": false
+  },
+  "test_execution_notes": {
+    "org_unit_rounds": 1,
+    "org_browser_rounds": [
+      21,
+      22
+    ],
+    "org_static_rounds": 3,
+    "org_formal_check_instances": 69,
+    "org_formal_passed": 68,
+    "org_formal_test_side_failures": 1,
+    "separate_preflight_orchestration_failures": 2,
+    "pdf_release_artifacts": 4,
+    "pdf_fixture_cases": 3
+  },
+  "stopping_conditions": {
+    "detail_over_20_minutes": false,
+    "custom_pdf_engines": 0,
+    "new_pdf_libraries": 1
+  }
+}

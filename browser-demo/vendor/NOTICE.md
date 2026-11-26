@@ -37,3 +37,10 @@ No license/source URL in this notice is loaded by the application. No model card
 | `mediapipe/wasm/vision_wasm_nosimd_internal.wasm` | 0.10.32 | Apache-2.0 | 10,647,962 |
 
 Total: **26,764,253 bytes**, including license and source map.
+
+## PDF export
+
+`pdf-lib/pdf-lib.esm.min.mjs` is the unmodified ES module distribution of pdf-lib 1.17.1 (renamed from `.js` to `.mjs`), obtained from the npm release archive. Its MIT license is retained in `pdf-lib/LICENSE.md`; both files are pinned by size and SHA-256 in `asset-manifest.json`. This is the only added PDF library. The self-contained distribution includes its bundled dependencies and upstream license comments. It is loaded locally during initialization; export does not fetch fonts, code or other resources.
+
+Source archive: https://registry.npmjs.org/pdf-lib/-/pdf-lib-1.17.1.tgz
+API reference: https://pdf-lib.js.org/docs/api/classes/pdfdocument

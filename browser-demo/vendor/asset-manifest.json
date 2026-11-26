@@ -63,6 +63,22 @@
       "license": "Apache-2.0",
       "bytes": 10647962,
       "sha256": "924274fcd5ac8985f6570a8573e7971b7bd2d580ba1b8f3beb0ba8f95db6347c"
+    },
+    {
+      "path": "pdf-lib/LICENSE.md",
+      "component": "pdf-lib",
+      "version": "1.17.1",
+      "license": "MIT",
+      "bytes": 1070,
+      "sha256": "f2c9fc00fdb66eb99ac156ba52d734af66d8d309f65753ae809ad34ee2883bcb"
+    },
+    {
+      "path": "pdf-lib/pdf-lib.esm.min.mjs",
+      "component": "pdf-lib",
+      "version": "1.17.1",
+      "license": "MIT",
+      "bytes": 523417,
+      "sha256": "72c052d97b4d5d9fa6cdbdcb7ad709f03d4ddb1122390cb3afeba4d88651d969"
     }
   ]
 }

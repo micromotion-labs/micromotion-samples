@@ -76,6 +76,10 @@ for name in files:
     identity_hits += sum(lowered.count(term) for term in terms)
     personal_email_hits += len(re.findall(r'[\w.+-]+@(?:gmail|outlook|hotmail|yahoo|qq|163|126|icloud)\.(?:com|net)', text, re.I))
     for domain, account in re.findall(r'https?://(github\.com|x\.com|twitter\.com|linkedin\.com)/(?:in/)?([\w.-]+)', text):
+        # The unchanged, SHA-256-pinned PDF distribution includes its upstream
+        # project URL in default metadata. reportPDF replaces that metadata.
+        if name == 'browser-demo/vendor/pdf-lib/pdf-lib.esm.min.mjs' and domain == 'github.com' and account == 'Hopding':
+            continue
         if account.casefold() not in {'micromotion-labs','google','google-ai-edge','protocolbuffers','emscripten-core','tensorflow','opencv'}:
             account_links.append({'file': name, 'domain': domain})
 

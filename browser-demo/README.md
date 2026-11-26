@@ -2,7 +2,7 @@
 
 Serve the repository with `python3 -m http.server 8000 --bind 127.0.0.1` and open `/browser-demo/` on that local server. There is no build or runtime package installation. Opening `index.html` as a file is unsupported because modules, WASM and camera permissions need an HTTP origin. Use HTTPS for remote hosting. Copy this entire directory, including `vendor/`, to a static host.
 
-The primary action, **Try with sample data**, runs a 30-second synthetic landmark stream. Its values are measured from generated geometry, not people. A new source starts a new session. Stop freezes readings; generating a report stops capture and creates a frozen snapshot. JSON and self-contained HTML downloads export that exact report, including synthetic-source labeling. Switching modes, hiding the page or leaving it stops the camera. No video or landmark arrays are saved to disk or browser storage.
+The primary action, **Try with sample data**, runs a 30-second synthetic landmark stream. Its values are measured from generated geometry, not people. A new source starts a new session. Stop freezes readings; generating a report stops capture and creates a frozen snapshot. JSON, self-contained HTML and English PDF downloads export that exact report, including synthetic-source labeling. Switching modes, hiding the page or leaving it stops the camera. No video or landmark arrays are saved to disk or browser storage.
 
 ## Scope and shared pipeline
 
@@ -16,7 +16,7 @@ The primary action, **Try with sample data**, runs a 30-second synthetic landmar
 | Report and export | ADAPT | Existing `makeReport` / `renderReport` path; `reportHTML` serializes that same rendering and embeds the exact JSON snapshot |
 | Interface | BUILD | Native HTML/CSS/canvas, no framework |
 
-Build scope is limited to these four modules plus static presentation and verification. The source standard's formulas, norms, calibration and interpretation are deliberately absent. No core engine code is copied. None of the four proxies matches the 21 standard parameters: in particular, head stability is not emotional stability and iris offset is not concentration. All 21 report slots therefore contain null values plus `SDK-only — not computed in this demo`; the four measured proxies are under `demo_metrics`. The slot order, keys and required fields are preserved, but this demo report is not an SDK-compatible computation result. The official SDK runs on device and implements the full standard.
+Build scope is limited to these four modules plus static presentation and verification. The source standard's formulas, calibration and interpretation are deliberately absent. Reference constants are included only as descriptive metadata in `standard_reference`; result fields remain null. No core engine code is copied. None of the four proxies matches the 21 standard parameters: in particular, head stability is not emotional stability and iris offset is not concentration. All 21 report slots therefore contain null values plus `SDK-only — not computed in this demo`; the four measured proxies are under `demo_metrics`. The slot order, keys and required fields are preserved, but this demo report is not an SDK-compatible computation result. The official SDK runs on device and implements the full standard.
 
 ## Measurement definitions
 
@@ -35,18 +35,19 @@ Live traces retain only 120 observations. Online session statistics use bounded 
 
 Initialization loads the local JSON schema, model, JS and selected WASM variant, then warms the real inference graph on a blank canvas. Both SIMD and non-SIMD assets are included. Controls become ready only after initialization settles. If the model fails, camera mode is disabled with an explicit message; synthetic mode remains available. Local assets are served by the static server; no backend processing exists. After readiness, neither mode, report generation nor download makes a network request. No analytics, remote font, service worker, persistent storage, upload or video recording is present. A restrictive Content Security Policy blocks external connections.
 
-For an embedded demo use a same-origin iframe pointing to `browser-demo/index.html`; allow `camera` only if needed. Cross-origin camera permission also depends on the host's Permissions Policy. An iframe sandbox must permit scripts and same-origin execution; JSON and HTML downloads need `allow-downloads`. Sample mode needs no camera grant. Host-page analytics and network activity are outside this child document's guarantees.
+For an embedded demo use a same-origin iframe pointing to `browser-demo/index.html`; allow `camera` only if needed. Cross-origin camera permission also depends on the host's Permissions Policy. An iframe sandbox must permit scripts and same-origin execution; JSON, HTML and PDF downloads need `allow-downloads`. Sample mode needs no camera grant. Host-page analytics and network activity are outside this child document's guarantees.
 
 ## Verification
 
 Runtime has no dependencies beyond the vendored files. Optional development checks use Python 3 and Node, plus an existing Playwright installation and Chromium for browser acceptance:
 
 ```sh
-node --test browser-demo/tests/metrics.test.mjs
+PDF_PYTHON=/path/to/python-with-pymupdf node --test browser-demo/tests/*.test.mjs
 python3 browser-demo/tests/static-audit.py
 # With the local static server running:
 PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs \
 CHROMIUM_PATH=/absolute/path/to/chromium \
+PDF_PYTHON=/path/to/python-with-pymupdf \
 node browser-demo/tests/acceptance.mjs
 ```
 
@@ -58,4 +59,12 @@ Camera mode is implemented. Physical webcam operation, facial metric validity/ac
 
 Report cards use the frozen `makeReport` snapshot: source, elapsed and valid tracking seconds, valid frames, generation time, and four values with units. Each neutral bar places the current value between its own session minimum and maximum, including signed ranges; a constant range uses a center mark, and an unavailable value has no fill. These are observed ranges, not target ranges, thresholds or ratings. All 21 SDK-only rows and the demo disclaimer remain.
 
-The HTML download calls the same `renderReport`, inlines the already loaded CSS, and embeds the complete JSON object as inert data. It opens offline without scripts or external requests. There is no second report computation or extra runtime asset. The viewer caption lives below the canvas in normal flow. Acceptance checks ready, sample, report and denied-camera layouts at 360, 390, 400, 768 and 1440 px, plus 72 visible report fields and every JSON leaf value in the HTML export.
+The HTML download calls the same `renderReport`, inlines the already loaded CSS, and embeds the complete JSON object as inert data. It opens offline without scripts or external requests. There is no second report computation. The viewer caption lives below the canvas in normal flow. Acceptance checks ready, sample, report and denied-camera layouts at 360, 390, 400, 768 and 1440 px, plus 72 visible report fields and every JSON leaf value in the HTML export.
+
+## English PDF export
+
+**Download PDF report** saves a real six-page PDF using the same frozen object and Blob download helper as the existing exports. The PDF is unbranded, including document metadata. Its cover, session information, result overview, parameter tables, signal interpretation and reading notes are rendered by `report-pdf.mjs` with one locally vendored PDF library. The library loads before readiness; downloads work offline without a print dialog. Existing on-page and HTML rendering is unchanged.
+
+The four signals are explicitly labeled “demonstration proxies, not SDK parameters”. Interpretations describe only their definitions and positions within their observed session ranges. The separate 21-item table uses v1.0 reference constants copied into each frozen item's `standard_reference`; result fields remain null and every PDF result says “Not computed in this demo — available in the SDK”. U12 is provisional; U15 has an empirical upper limit; U17/U18 have no established interval; U19–U21 have empirical upper limits only.
+
+PDF verification uses an independent Python parser (PyMuPDF, development only) and the actual browser-downloaded file, with section, metric, table, metadata and bounds checks. `PDF_PYTHON` selects its Python interpreter. `PDF_STANDARD_FILE` supplies the private v1.0 Markdown source for independent row checks; `PDF_PRIVATE_TERMS_FILE` supplies a private JSON denylist for brand and sample identity scans. These external files are never copied into runtime or evidence. The browser checks record actual counts and require no external requests after readiness.
