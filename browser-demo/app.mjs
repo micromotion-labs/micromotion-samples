@@ -1,7 +1,7 @@
 import { FaceLandmarker, FilesetResolver } from './vendor/mediapipe/vision_bundle.mjs';
 import { MetricSession, METRICS, POINTS } from './metrics.mjs';
 import { sampleLandmarks, SAMPLE_SECONDS } from './sample.mjs';
-import { makeReport, renderReport } from './report.mjs';
+import { makeReport, renderReport, reportHTML } from './report.mjs';
 
 const $ = id => document.getElementById(id);
 const video = $('video'), canvas = $('face'), ctx = canvas.getContext('2d');
@@ -58,7 +58,7 @@ function stop(message) {
 }
 function begin(source) {
   stop(); session = new MetricSession(source); report = null;
-  $('download').disabled = true; $('report').hidden = true; $('report').replaceChildren();
+  $('download').disabled = true; $('download-html').disabled = true; $('report').hidden = true; $('report').replaceChildren();
   $('report-hint').hidden = false; $('placeholder').hidden = true; $('stop').disabled = false;
   $('source-label').textContent = source === 'synthetic_sample' ? 'SYNTHETIC SAMPLE' : 'CAMERA';
   $('viewer-caption').textContent = source === 'synthetic_sample' ? 'SYNTHETIC LANDMARKS · NO VIDEO' : 'LOCAL CAMERA · UNMIRRORED';
@@ -124,16 +124,24 @@ $('camera').addEventListener('click', async () => {
 $('stop').addEventListener('click', () => stop('Session stopped. Your current readings are frozen; generate a report or start a new session.'));
 $('generate').addEventListener('click', () => {
   if (!session?.frames) return;
-  stop('Report generated. Capture stopped; the report and JSON describe the same frozen session.');
+  stop('Report generated. Capture stopped; the report, JSON and HTML describe the same frozen session.');
   report = makeReport(session, standard); renderReport(report, $('report'));
-  $('report').hidden = false; $('report-hint').hidden = true; $('download').disabled = false;
+  $('report').hidden = false; $('report-hint').hidden = true; $('download').disabled = false; $('download-html').disabled = false;
   $('report').focus({ preventScroll: true });
 });
-$('download').addEventListener('click', () => {
-  if (!report) return;
-  const url = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2) + '\n'], { type: 'application/json' }));
-  const a = document.createElement('a'); a.href = url; a.download = 'micromotion-demo-report.json'; a.click();
+function downloadReport(content, type, extension) {
+  const url = URL.createObjectURL(new Blob([content], { type }));
+  const a = document.createElement('a'); a.href = url; a.download = `micromotion-demo-report.${extension}`; a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+$('download').addEventListener('click', () => {
+  if (report) downloadReport(JSON.stringify(report, null, 2) + '\n', 'application/json', 'json');
+});
+$('download-html').addEventListener('click', () => {
+  if (!report) return;
+  // Reuse the already loaded stylesheet. Exporting makes no fetch or other request.
+  const css = Array.from(document.styleSheets, sheet => Array.from(sheet.cssRules, rule => rule.cssText).join('\n')).join('\n');
+  downloadReport(reportHTML(report, css), 'text/html', 'html');
 });
 document.addEventListener('visibilitychange', () => { if (document.hidden && (active || stream || !$('stop').disabled)) stop('Session stopped because the page was hidden. Start a new session to continue.'); });
 window.addEventListener('pagehide', () => stop());

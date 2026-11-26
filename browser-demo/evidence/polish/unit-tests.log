@@ -1,0 +1,16 @@
+✔ stationary geometry yields zero motion without inventing initial values (33.424206ms)
+✔ 30-second synthetic fixture measures ten completed blinks (113.436297ms)
+✔ pixel-aspect handling gives equivalent values across normalized resolutions (9.338182ms)
+✔ jitter removes translation, uniform scale and in-plane roll (0.642716ms)
+✔ lost face clears current values and breaks blink/motion continuity (0.869136ms)
+✔ invalid, degenerate and duplicate frames cannot poison statistics (1.108366ms)
+✔ long gaps and prolonged eye closure do not create false blinks (4.415986ms)
+✔ report preserves all standard IDs and required fields without false equivalence (1.238081ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 339.041786

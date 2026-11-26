@@ -47,6 +47,9 @@ for p in runtime:
         # Vendor loaders use computed local paths. Their entire source contains
         # no URL literals; check constants as well as direct fetch/XHR references.
         for match in re.finditer(r'''["']((?:https?:)?//[^"'\s]+)["']''', text):
+            # An SVG namespace identifier passed to createElementNS is not a request.
+            if match[1] == 'http://www.w3.org/2000/svg' and text[max(0, match.start()-16):match.start()].endswith('createElementNS('):
+                continue
             check_ref(match[1], p)
         for pattern in [r'''(?:from\s*|import\s*|fetch\(\s*)["']([^"']+)["']''', r'''url\(\s*["']?([^\s)'";]+)''']:
             for match in re.finditer(pattern, text):
@@ -87,6 +90,8 @@ result = {
                       'personal_email_hits': personal_email_hits, 'unreviewed_personal_account_links': len(account_links)},
     'failures': failures, 'failure_classification': 'product_or_packaging_defect' if failures or external or identity_hits or personal_email_hits or account_links else 'none',
 }
-(DEMO / 'evidence/static-audit.json').write_text(json.dumps(result, indent=2) + '\n')
+output = Path(os.environ.get('DEMO_EVIDENCE', DEMO / 'evidence'))
+output.mkdir(parents=True, exist_ok=True)
+(output / 'static-audit.json').write_text(json.dumps(result, indent=2) + '\n')
 print(json.dumps(result, indent=2))
 raise SystemExit(bool(failures or external or identity_hits or personal_email_hits or account_links))

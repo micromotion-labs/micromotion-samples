@@ -1,0 +1,75 @@
+{
+  "browser": "149.0.7827.55",
+  "executed_count": 3,
+  "passed": 2,
+  "failed": 1,
+  "cases": [
+    {
+      "name": "Local model, SIMD WASM and real blank-frame inference initialize",
+      "status": "pass",
+      "milliseconds": 1379,
+      "detail": {
+        "initialization_requests": [
+          "/browser-demo/",
+          "/browser-demo/style.css",
+          "/browser-demo/app.mjs",
+          "/browser-demo/vendor/mediapipe/vision_bundle.mjs",
+          "/browser-demo/metrics.mjs",
+          "/browser-demo/sample.mjs",
+          "/browser-demo/report.mjs",
+          "/browser-demo/standard-21.json",
+          "/browser-demo/vendor/mediapipe/models/face_landmarker.task",
+          "/browser-demo/vendor/mediapipe/wasm/vision_wasm_internal.js",
+          "/browser-demo/vendor/mediapipe/wasm/vision_wasm_internal.wasm"
+        ],
+        "networking_disabled_after_readiness": true
+      }
+    },
+    {
+      "name": "Empty session report and JSON actions are disabled",
+      "status": "pass",
+      "milliseconds": 9,
+      "detail": null
+    },
+    {
+      "name": "Ready overlays and touch targets fit all five viewports",
+      "status": "fail",
+      "milliseconds": 53,
+      "failure_class": "untriaged",
+      "error": "ready 360 clipping\n+ actual - expected\n\n+ [\n+   '◌'\n+ ]\n- []\n"
+    }
+  ],
+  "coverage": [
+    "Local model, SIMD WASM and real blank-frame inference initialize",
+    "Empty session report and JSON actions are disabled"
+  ],
+  "uncovered": [
+    "Physical webcam and real-person landmark/metric validity",
+    "Accuracy, calibration, demographic or clinical validation",
+    "Safari, Firefox and physical mobile browsers",
+    "Cross-origin iframe permissions and production hosting"
+  ],
+  "failure_classification": {
+    "product_defects": 0,
+    "test_infrastructure_failures": 0,
+    "untriaged_failures": 1,
+    "expected_negative_cases": [
+      "Camera permission denial",
+      "No face in blank video",
+      "Late camera resolution",
+      "Model asset load failure"
+    ]
+  },
+  "external_requests": [],
+  "post_readiness_requests": [],
+  "page_errors": [],
+  "csp_violations": [],
+  "runtime_messages": [
+    "W1126 07:13:11.689999 2225904 face_landmarker_graph.cc:180] Sets FaceBlendshapesGraph acceleration to xnnpack by default.",
+    "W1126 07:13:11.814000 2225904 gl_context.cc:1118] OpenGL error checking is disabled",
+    "INFO: Created TensorFlow Lite XNNPACK delegate for CPU.",
+    "W1126 07:13:11.859000 2225904 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.",
+    "W1126 07:13:11.904999 2225904 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.",
+    "[.WebGL-0x21cc043f4200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+  ]
+}

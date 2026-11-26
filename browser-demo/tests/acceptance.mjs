@@ -4,13 +4,13 @@ import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE ? pathToFileURL(process.env.PLAYWRIGHT_MODULE).href : 'playwright');
 const origin = process.env.DEMO_ORIGIN || 'http://127.0.0.1:8765';
-const output = new URL('../evidence/', import.meta.url); await mkdir(output, { recursive: true });
+const output = process.env.DEMO_EVIDENCE ? pathToFileURL(process.env.DEMO_EVIDENCE.replace(/\/$/, '') + '/') : new URL('../evidence/', import.meta.url); await mkdir(output, { recursive: true });
 const browser = await chromium.launch({
   headless: true, ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}),
   args: ['--no-sandbox', '--enable-unsafe-swiftshader'],
 });
 const results = [], requests = [], afterReady = [], external = [], errors = [], violations = [], runtimeMessages = [];
-let ready = false;
+let ready = false, frozenReport;
 async function check(name, fn) {
   const started = Date.now();
   try { const detail = await fn(); results.push({ name, status: 'pass', milliseconds: Date.now() - started, detail: detail ?? null }); }
@@ -28,6 +28,34 @@ page.on('pageerror', e => errors.push(e.message));
 page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') runtimeMessages.push(m.text()); });
 await page.exposeFunction('recordCspViolation', value => violations.push(value));
 await page.addInitScript(() => document.addEventListener('securitypolicyviolation', e => window.recordCspViolation(e.violatedDirective)));
+const widths = [360, 390, 400, 768, 1440];
+async function layout(stage) {
+  const details = [];
+  for (const width of widths) {
+    await page.setViewportSize({ width, height: 1000 });
+    const result = await page.evaluate(() => {
+      const rect = node => node.getBoundingClientRect();
+      const caption = rect(document.querySelector('#viewer-caption')), viewer = rect(document.querySelector('.viewer'));
+      const placeholder = document.querySelector('#placeholder');
+      const clipped = [...document.querySelectorAll('#status, .viewer-caption, .tag, button, .report-value, .report-meta dd, td, .reading, #placeholder>*:not(.face-symbol)')]
+        .filter(n => n.getClientRects().length && n.clientWidth && (n.scrollWidth > n.clientWidth + 1 || (getComputedStyle(n).overflowY !== 'visible' && n.scrollHeight > n.clientHeight + 1))).map(n => n.textContent);
+      const buttons = [...document.querySelectorAll('button')].map(n => ({ id: n.id, width: rect(n).width, height: rect(n).height }));
+      return {
+        width: innerWidth, overflow: document.documentElement.scrollWidth > innerWidth,
+        separateCaption: caption.top >= viewer.bottom, clipped, buttons,
+        placeholderContained: placeholder.hidden || [...placeholder.children].every(n => { const r = rect(n); return r.top >= viewer.top && r.bottom <= viewer.bottom && r.left >= viewer.left && r.right <= viewer.right; }),
+      };
+    });
+    assert.equal(result.overflow, false, `${stage} ${width} overflow`);
+    assert.equal(result.separateCaption, true); assert.equal(result.placeholderContained, true);
+    assert.deepEqual(result.clipped, [], `${stage} ${width} clipping`);
+    assert.ok(result.buttons.every(b => b.width >= 44 && b.height >= 44));
+    details.push(result);
+    if (stage === 'ready' || stage === 'report') await page.screenshot({ path: fileURLToPath(new URL(`${stage}-${width}.png`, output)), fullPage: true });
+  }
+  await page.setViewportSize({ width: 1440, height: 1100 });
+  return { stage, viewports: details };
+}
 try {
   await check('Local model, SIMD WASM and real blank-frame inference initialize', async () => {
     await page.goto(`${origin}/browser-demo/`); await page.waitForSelector('body[data-ready="true"]'); await page.waitForLoadState('networkidle');
@@ -38,8 +66,9 @@ try {
     return { initialization_requests: requests.slice(), networking_disabled_after_readiness: true };
   });
   await check('Empty session report and JSON actions are disabled', async () => {
-    assert.equal(await page.isDisabled('#generate'), true); assert.equal(await page.isDisabled('#download'), true);
+    assert.equal(await page.isDisabled('#generate'), true); assert.equal(await page.isDisabled('#download'), true); assert.equal(await page.isDisabled('#download-html'), true);
   });
+  await check('Ready overlays and touch targets fit all five viewports', () => layout('ready'));
   await check('Offline sample updates all four metrics and draws time-series traces', async () => {
     await page.click('#sample');
     await page.waitForFunction(() => Number.parseFloat(document.querySelector('#session-time').textContent) >= 6);
@@ -51,6 +80,7 @@ try {
     await page.screenshot({ path: fileURLToPath(new URL('sample-desktop.png', output)), fullPage: true });
     return { first, second, trace_pixels_present: tracePixels };
   });
+  await check('Synthetic caption and running status fit all five viewports', () => layout('sample'));
   await check('Full 30-second sample stops automatically', async () => {
     await page.waitForFunction(() => document.querySelector('#status').textContent.includes('30-second synthetic sample complete'), { timeout: 40000 });
     assert.equal(await page.isDisabled('#stop'), true);
@@ -59,7 +89,7 @@ try {
   });
   await check('Report contains four measured proxies and all 21 unavailable SDK slots', async () => {
     await page.click('#generate'); assert.equal(await page.locator('#report tbody tr').count(), 21);
-    assert.equal(await page.locator('#report dd').count(), 4);
+    assert.equal(await page.locator('#report .report-metrics dd').count(), 4);
     assert.equal(await page.locator('#report tbody tr').filter({ hasText: 'SDK-only — not computed in this demo' }).count(), 21);
     const frames = await page.textContent('#frame-count'); await page.waitForTimeout(150); assert.equal(await page.textContent('#frame-count'), frames);
     await page.screenshot({ path: fileURLToPath(new URL('report-desktop.png', output)), fullPage: true });
@@ -68,7 +98,7 @@ try {
     const downloadPromise = page.waitForEvent('download'); await page.click('#download'); const download = await downloadPromise;
     assert.equal(download.suggestedFilename(), 'micromotion-demo-report.json');
     const path = fileURLToPath(new URL('sample-report.json', output)); await download.saveAs(path);
-    const report = JSON.parse(await readFile(path, 'utf8'));
+    const report = frozenReport = JSON.parse(await readFile(path, 'utf8'));
     const standard = JSON.parse(await readFile(new URL('../standard-21.json', import.meta.url), 'utf8'));
     assert.equal(report.synthetic, true); assert.equal(report.source, 'synthetic_sample'); assert.equal(report.items.length, 21);
     assert.equal(Object.keys(report.demo_metrics).length, 4);
@@ -78,18 +108,63 @@ try {
       const item = report.items[i]; assert.equal(item.key, standard.items[i].key);
       standard.required_keys.forEach(k => assert.ok(k in item)); assert.equal(item.display, null);
     }
-    const uiValues = await page.locator('#report dd').allTextContents();
-    Object.values(report.demo_metrics).forEach((m,i) => assert.equal(uiValues[i], `${m.value.toFixed(3)} ${m.unit}`));
+    const uiValues = await page.locator('#report .report-value').allTextContents();
+    Object.values(report.demo_metrics).forEach((m,i) => assert.equal(uiValues[i], `${m.value} ${m.unit}`));
     return { filename: download.suggestedFilename(), valid_frames: report.session.valid_frames, blink_count: report.session.blink_count, items: report.items.length };
   });
-  await check('Mobile layout fits 390 px and preserves report readability', async () => {
-    await page.setViewportSize({ width: 390, height: 844 });
-    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
-    await page.screenshot({ path: fileURLToPath(new URL('report-mobile.png', output)), fullPage: true });
-    await page.setViewportSize({ width: 1440, height: 1100 });
+  await check('HTML is standalone and matches every JSON field and all 72 visible report fields', async () => {
+    const promise = page.waitForEvent('download'); await page.click('#download-html'); const download = await promise;
+    assert.equal(download.suggestedFilename(), 'micromotion-demo-report.html');
+    const path = fileURLToPath(new URL('sample-report.html', output)); await download.saveAs(path);
+    const c = await browser.newContext({ offline: true }), p = await c.newPage(); const requests = [], errors = [];
+    p.on('request', r => { if (!r.url().startsWith('file:')) requests.push(r.url()); });
+    p.on('pageerror', e => errors.push(e.message));
+    await p.goto(pathToFileURL(path).href);
+    const data = JSON.parse(await p.locator('#report-data').textContent()); assert.deepEqual(data, frozenReport);
+    const fields = '#report .report-meta dd, #report .report-value, #report tbody td';
+    const onPage = await page.locator(fields).allTextContents(), exported = await p.locator(fields).allTextContents();
+    assert.equal(onPage.length, 72); assert.deepEqual(exported, onPage);
+    assert.deepEqual(onPage.slice(0,5), ['Synthetic sample (artificial landmarks)', `${data.session.elapsed_seconds} s`, `${data.session.valid_tracking_seconds} s`, String(data.session.valid_frames), data.generated_at]);
+    assert.equal(await p.locator('#report').innerHTML(), await page.locator('#report').innerHTML());
+    assert.equal(await p.locator('script:not([type="application/json"]), link, [src]').count(), 0);
+    assert.equal(await p.locator('style').count(), 1);
+    for (const width of widths) {
+      await p.setViewportSize({width,height:1000});
+      assert.ok(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+    }
+    assert.deepEqual(requests, []); assert.deepEqual(errors, []);
+    await p.screenshot({ path: fileURLToPath(new URL('html-report.png', output)), fullPage: true });
+    const leaves = v => v && typeof v === 'object' ? Object.values(v).reduce((n,x) => n+leaves(x),0) : 1;
+    await c.close(); return { visible_fields_compared: 72, json_leaf_values_compared: leaves(data), metric_values: 4, metadata: 5, table_cells: 63, external_requests: 0, widths };
+  });
+  await check('Rendered report layout and touch targets fit all five viewports', () => layout('report'));
+  await check('Report renderer handles unavailable, signed, constant-range and escaped values', async () => {
+    const result = await page.evaluate(async () => {
+      const { makeReport, renderReport, reportHTML } = await import('./report.mjs');
+      const { MetricSession } = await import('./metrics.mjs');
+      const { sampleLandmarks } = await import('./sample.mjs');
+      const s = new MetricSession('camera'); s.add(sampleLandmarks(0), 0);
+      const r = makeReport(s, { items: [], schema_version: 'test', issued_at: 'test' });
+      r.boundary = '</script><img src="https://invalid.example/"> & demo';
+      r.demo_metrics.gaze_proxy.value = -.1; r.demo_metrics.gaze_proxy.min = -.2; r.demo_metrics.gaze_proxy.max = .2;
+      r.demo_metrics.landmark_jitter.value = 0; r.demo_metrics.landmark_jitter.min = 0; r.demo_metrics.landmark_jitter.max = 0;
+      const target = document.createElement('div'); renderReport(r, target);
+      const parsed = new DOMParser().parseFromString(reportHTML(r, '').replace('<style></style>', ''), 'text/html');
+      return { unavailable: target.querySelector('[data-metric="blink_rate"] .report-value').textContent,
+        unavailableBars: target.querySelectorAll('[data-metric="blink_rate"] .bar-value').length,
+        signedBar: target.querySelector('[data-metric="gaze_proxy"] .bar-value').getAttribute('width'),
+        constantMarker: target.querySelector('[data-metric="landmark_jitter"] .bar-value').getAttribute('x'),
+        source: target.querySelector('[data-field="source"]').textContent,
+        injected: parsed.querySelectorAll('img').length,
+        dataEqual: JSON.stringify(JSON.parse(parsed.querySelector('#report-data').textContent)) === JSON.stringify(r) };
+    });
+    assert.match(result.unavailable, /^Unavailable — /); assert.equal(result.unavailableBars, 0);
+    assert.equal(result.signedBar, '25'); assert.equal(result.constantMarker, '49.5');
+    assert.equal(result.source, 'Camera session'); assert.equal(result.injected, 0); assert.equal(result.dataEqual, true);
+    return result;
   });
   await check('Restart resets readings, report and download availability', async () => {
-    await page.click('#sample'); assert.equal(await page.isVisible('#report'), false); assert.equal(await page.isDisabled('#download'), true);
+    await page.click('#sample'); assert.equal(await page.isVisible('#report'), false); assert.equal(await page.isDisabled('#download'), true); assert.equal(await page.isDisabled('#download-html'), true);
     assert.equal(await page.textContent('#blink_rate'), '—');
     await page.click('#stop');
   });
@@ -98,6 +173,7 @@ try {
     await page.click('#camera'); await page.waitForFunction(() => document.querySelector('#status').textContent.includes('permission denied'));
     assert.ok((await page.locator('.reading').allTextContents()).every(x => x.includes('—'))); assert.equal(await page.isDisabled('#generate'), true);
   });
+  await check('Camera caption and denied status fit all five viewports', () => layout('denied'));
   await check('Blank video stream traverses real camera inference and stops its track', async () => {
     await page.evaluate(() => {
       navigator.mediaDevices.getUserMedia = async () => {

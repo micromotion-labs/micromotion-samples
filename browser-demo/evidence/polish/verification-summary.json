@@ -1,0 +1,72 @@
+{
+  "final": {
+    "unit_tests": 8,
+    "static_checks": 5,
+    "browser_cases": 20,
+    "passed": 33,
+    "failed": 0
+  },
+  "browser_attempts": [
+    {
+      "file": "acceptance-initial.json",
+      "executed": 3,
+      "passed": 2,
+      "failed": 1,
+      "classification": "test_side",
+      "reason": "Decorative glyph scroll height was mistaken for clipping."
+    },
+    {
+      "file": "acceptance-intermediate.json",
+      "executed": 3,
+      "passed": 2,
+      "failed": 1,
+      "classification": "test_side",
+      "reason": "Visible text extending below its line box was mistaken for clipping. Check overflow policy and viewport bounds."
+    },
+    {
+      "file": "acceptance-csp.json",
+      "executed": 18,
+      "passed": 17,
+      "failed": 1,
+      "classification": "product_defect",
+      "reason": "Attaching export CSS to an inert document inherited the live page CSP. Serialize CSS only into the downloaded document."
+    },
+    {
+      "file": "acceptance.json",
+      "executed": 20,
+      "passed": 20,
+      "failed": 0
+    }
+  ],
+  "known_product_issue_fixed": "Viewer caption and centered prompt shared the same canvas space; captions now use normal flow outside the canvas.",
+  "viewports": [
+    360,
+    390,
+    400,
+    768,
+    1440
+  ],
+  "layout_states": [
+    "ready",
+    "sample",
+    "report",
+    "denied"
+  ],
+  "report_export": {
+    "visible_fields_compared": 72,
+    "json_leaf_values_compared": 584,
+    "metric_values": 4,
+    "metadata": 5,
+    "table_cells": 63,
+    "external_requests": 0,
+    "widths": [
+      360,
+      390,
+      400,
+      768,
+      1440
+    ]
+  },
+  "unresolved_product_defects": 0,
+  "unresolved_test_failures": 0
+}

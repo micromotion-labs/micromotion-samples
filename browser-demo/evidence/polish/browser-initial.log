@@ -1,0 +1,11 @@
+PASS Local model, SIMD WASM and real blank-frame inference initialize
+PASS Empty session report and JSON actions are disabled
+ACCEPTANCE FAILED: ready 360 clipping
++ actual - expected
+
++ [
++   '◌'
++ ]
+- []
+
+{"executed":3,"passed":2,"failed":1}

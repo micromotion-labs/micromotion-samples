@@ -2,7 +2,7 @@
 
 Serve the repository with `python3 -m http.server 8000 --bind 127.0.0.1` and open `/browser-demo/` on that local server. There is no build or runtime package installation. Opening `index.html` as a file is unsupported because modules, WASM and camera permissions need an HTTP origin. Use HTTPS for remote hosting. Copy this entire directory, including `vendor/`, to a static host.
 
-The primary action, **Try with sample data**, runs a 30-second synthetic landmark stream. Its values are measured from generated geometry, not people. A new source starts a new session. Stop freezes readings; generating a report stops capture and creates a frozen snapshot. Download exports that exact report, including synthetic-source labeling. Switching modes, hiding the page or leaving it stops the camera. No video or landmark arrays are saved to disk or browser storage.
+The primary action, **Try with sample data**, runs a 30-second synthetic landmark stream. Its values are measured from generated geometry, not people. A new source starts a new session. Stop freezes readings; generating a report stops capture and creates a frozen snapshot. JSON and self-contained HTML downloads export that exact report, including synthetic-source labeling. Switching modes, hiding the page or leaving it stops the camera. No video or landmark arrays are saved to disk or browser storage.
 
 ## Scope and shared pipeline
 
@@ -13,7 +13,7 @@ The primary action, **Try with sample data**, runs a 30-second synthetic landmar
 | Standard identities | ADAPT | U01–U21 identity metadata from standard v1.0.0, issued 2026-11-12 |
 | Demo measurements | BUILD | One `MetricSession` in `metrics.mjs`, used by both sources |
 | Synthetic source | BUILD | Deterministic landmark geometry in `sample.mjs`; never a camera fallback |
-| Report and export | BUILD | One `makeReport` / `renderReport` path in `report.mjs` |
+| Report and export | ADAPT | Existing `makeReport` / `renderReport` path; `reportHTML` serializes that same rendering and embeds the exact JSON snapshot |
 | Interface | BUILD | Native HTML/CSS/canvas, no framework |
 
 Build scope is limited to these four modules plus static presentation and verification. The source standard's formulas, norms, calibration and interpretation are deliberately absent. No core engine code is copied. None of the four proxies matches the 21 standard parameters: in particular, head stability is not emotional stability and iris offset is not concentration. All 21 report slots therefore contain null values plus `SDK-only — not computed in this demo`; the four measured proxies are under `demo_metrics`. The slot order, keys and required fields are preserved, but this demo report is not an SDK-compatible computation result. The official SDK runs on device and implements the full standard.
@@ -35,7 +35,7 @@ Live traces retain only 120 observations. Online session statistics use bounded 
 
 Initialization loads the local JSON schema, model, JS and selected WASM variant, then warms the real inference graph on a blank canvas. Both SIMD and non-SIMD assets are included. Controls become ready only after initialization settles. If the model fails, camera mode is disabled with an explicit message; synthetic mode remains available. Local assets are served by the static server; no backend processing exists. After readiness, neither mode, report generation nor download makes a network request. No analytics, remote font, service worker, persistent storage, upload or video recording is present. A restrictive Content Security Policy blocks external connections.
 
-For an embedded demo use a same-origin iframe pointing to `browser-demo/index.html`; allow `camera` only if needed. Cross-origin camera permission also depends on the host's Permissions Policy. An iframe sandbox must permit scripts and same-origin execution; JSON downloads need `allow-downloads`. Sample mode needs no camera grant. Host-page analytics and network activity are outside this child document's guarantees.
+For an embedded demo use a same-origin iframe pointing to `browser-demo/index.html`; allow `camera` only if needed. Cross-origin camera permission also depends on the host's Permissions Policy. An iframe sandbox must permit scripts and same-origin execution; JSON and HTML downloads need `allow-downloads`. Sample mode needs no camera grant. Host-page analytics and network activity are outside this child document's guarantees.
 
 ## Verification
 
@@ -50,6 +50,12 @@ CHROMIUM_PATH=/absolute/path/to/chromium \
 node browser-demo/tests/acceptance.mjs
 ```
 
-`DEMO_ORIGIN` optionally overrides the test origin (default loopback port 8765). Acceptance writes a structured log, a sample JSON export and desktop/mobile screenshots under `evidence/`. External requests are intercepted, and the main sample journey is exercised with browser networking offline after readiness. An additional injected blank video stream checks the real camera capture/inference/stop plumbing; it does not validate face detection quality or physical camera operation. A no-SIMD initialization check exercises the fallback assets.
+`DEMO_EVIDENCE` optionally selects an evidence directory for browser acceptance and the static audit. `DEMO_ORIGIN` optionally overrides the test origin (default loopback port 8765). Acceptance writes a structured log, JSON and HTML exports and desktop/mobile screenshots under `evidence/`. External requests are intercepted, and the main sample journey is exercised with browser networking offline after readiness. An additional injected blank video stream checks the real camera capture/inference/stop plumbing; it does not validate face detection quality or physical camera operation. A no-SIMD initialization check exercises the fallback assets.
 
 Camera mode is implemented. Physical webcam operation, facial metric validity/accuracy, Safari/Firefox, mobile cameras, cross-origin embedding and production hosting are not validated by these checks. See `evidence/acceptance.json` for executed cases, coverage, exclusions and failure classification.
+
+## Report presentation
+
+Report cards use the frozen `makeReport` snapshot: source, elapsed and valid tracking seconds, valid frames, generation time, and four values with units. Each neutral bar places the current value between its own session minimum and maximum, including signed ranges; a constant range uses a center mark, and an unavailable value has no fill. These are observed ranges, not target ranges, thresholds or ratings. All 21 SDK-only rows and the demo disclaimer remain.
+
+The HTML download calls the same `renderReport`, inlines the already loaded CSS, and embeds the complete JSON object as inert data. It opens offline without scripts or external requests. There is no second report computation or extra runtime asset. The viewer caption lives below the canvas in normal flow. Acceptance checks ready, sample, report and denied-camera layouts at 360, 390, 400, 768 and 1440 px, plus 72 visible report fields and every JSON leaf value in the HTML export.
