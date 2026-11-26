@@ -1,0 +1,193 @@
+{
+  "browser": "149.0.7827.55",
+  "executed_count": 15,
+  "passed": 15,
+  "failed": 0,
+  "cases": [
+    {
+      "name": "Local model, SIMD WASM and real blank-frame inference initialize",
+      "status": "pass",
+      "milliseconds": 1496,
+      "detail": {
+        "initialization_requests": [
+          "/browser-demo/",
+          "/browser-demo/style.css",
+          "/browser-demo/app.mjs",
+          "/browser-demo/vendor/mediapipe/vision_bundle.mjs",
+          "/browser-demo/metrics.mjs",
+          "/browser-demo/sample.mjs",
+          "/browser-demo/report.mjs",
+          "/browser-demo/standard-21.json",
+          "/browser-demo/vendor/mediapipe/models/face_landmarker.task",
+          "/browser-demo/vendor/mediapipe/wasm/vision_wasm_internal.js",
+          "/browser-demo/vendor/mediapipe/wasm/vision_wasm_internal.wasm"
+        ],
+        "networking_disabled_after_readiness": true
+      }
+    },
+    {
+      "name": "Empty session report and JSON actions are disabled",
+      "status": "pass",
+      "milliseconds": 8,
+      "detail": null
+    },
+    {
+      "name": "Offline sample updates all four metrics and draws time-series traces",
+      "status": "pass",
+      "milliseconds": 6956,
+      "detail": {
+        "first": [
+          "1.981° spread",
+          "20.1blinks/min",
+          "-0.146eye widths",
+          "3.379% face width/s"
+        ],
+        "second": [
+          "1.959° spread",
+          "18.0blinks/min",
+          "-0.169eye widths",
+          "4.562% face width/s"
+        ],
+        "trace_pixels_present": [
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "name": "Full 30-second sample stops automatically",
+      "status": "pass",
+      "milliseconds": 23118,
+      "detail": {
+        "frames": "900 frames",
+        "time": "30.0 s tracked"
+      }
+    },
+    {
+      "name": "Report contains four measured proxies and all 21 unavailable SDK slots",
+      "status": "pass",
+      "milliseconds": 477,
+      "detail": null
+    },
+    {
+      "name": "JSON download matches the frozen synthetic report and standard contract",
+      "status": "pass",
+      "milliseconds": 66,
+      "detail": {
+        "filename": "micromotion-demo-report.json",
+        "valid_frames": 900,
+        "blink_count": 10,
+        "items": 21
+      }
+    },
+    {
+      "name": "Mobile layout fits 390 px and preserves report readability",
+      "status": "pass",
+      "milliseconds": 213,
+      "detail": null
+    },
+    {
+      "name": "Restart resets readings, report and download availability",
+      "status": "pass",
+      "milliseconds": 93,
+      "detail": null
+    },
+    {
+      "name": "Denied camera permission has an explicit error and no fabricated readings",
+      "status": "pass",
+      "milliseconds": 90,
+      "detail": null
+    },
+    {
+      "name": "Blank video stream traverses real camera inference and stops its track",
+      "status": "pass",
+      "milliseconds": 185,
+      "detail": "Injected blank video only; real MediaPipe inference, no physical webcam or face accuracy claim."
+    },
+    {
+      "name": "Late camera permission resolution cannot override a newer sample session",
+      "status": "pass",
+      "milliseconds": 124,
+      "detail": null
+    },
+    {
+      "name": "Hiding a page stops an active camera stream",
+      "status": "pass",
+      "milliseconds": 106,
+      "detail": null
+    },
+    {
+      "name": "No post-initialization requests, external requests, page errors or CSP violations",
+      "status": "pass",
+      "milliseconds": 3,
+      "detail": {
+        "post_initialization_requests": 0,
+        "external_requests": 0,
+        "page_errors": 0,
+        "csp_violations": 0
+      }
+    },
+    {
+      "name": "Non-SIMD fallback initializes from vendored assets",
+      "status": "pass",
+      "milliseconds": 1267,
+      "detail": {
+        "selected_wasm": "vision_wasm_nosimd_internal.wasm"
+      }
+    },
+    {
+      "name": "Model load failure disables camera while retaining explicit synthetic mode",
+      "status": "pass",
+      "milliseconds": 619,
+      "detail": "Deliberate model-request abort; expected degradation, not a product failure."
+    }
+  ],
+  "coverage": [
+    "Local model, SIMD WASM and real blank-frame inference initialize",
+    "Empty session report and JSON actions are disabled",
+    "Offline sample updates all four metrics and draws time-series traces",
+    "Full 30-second sample stops automatically",
+    "Report contains four measured proxies and all 21 unavailable SDK slots",
+    "JSON download matches the frozen synthetic report and standard contract",
+    "Mobile layout fits 390 px and preserves report readability",
+    "Restart resets readings, report and download availability",
+    "Denied camera permission has an explicit error and no fabricated readings",
+    "Blank video stream traverses real camera inference and stops its track",
+    "Late camera permission resolution cannot override a newer sample session",
+    "Hiding a page stops an active camera stream",
+    "No post-initialization requests, external requests, page errors or CSP violations",
+    "Non-SIMD fallback initializes from vendored assets",
+    "Model load failure disables camera while retaining explicit synthetic mode"
+  ],
+  "uncovered": [
+    "Physical webcam and real-person landmark/metric validity",
+    "Accuracy, calibration, demographic or clinical validation",
+    "Safari, Firefox and physical mobile browsers",
+    "Cross-origin iframe permissions and production hosting"
+  ],
+  "failure_classification": {
+    "product_defects": 0,
+    "test_infrastructure_failures": 0,
+    "untriaged_failures": 0,
+    "expected_negative_cases": [
+      "Camera permission denial",
+      "No face in blank video",
+      "Late camera resolution",
+      "Model asset load failure"
+    ]
+  },
+  "external_requests": [],
+  "post_readiness_requests": [],
+  "page_errors": [],
+  "csp_violations": [],
+  "runtime_messages": [
+    "W1126 00:42:31.948999 2225904 face_landmarker_graph.cc:180] Sets FaceBlendshapesGraph acceleration to xnnpack by default.",
+    "W1126 00:42:32.099000 2225904 gl_context.cc:1118] OpenGL error checking is disabled",
+    "INFO: Created TensorFlow Lite XNNPACK delegate for CPU.",
+    "W1126 00:42:32.142000 2225904 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.",
+    "W1126 00:42:32.175000 2225904 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.",
+    "[.WebGL-0x317c046f0200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+  ]
+}

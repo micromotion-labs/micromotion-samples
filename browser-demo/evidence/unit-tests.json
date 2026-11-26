@@ -1,0 +1,40 @@
+{
+  "command": "node --test browser-demo/tests/metrics.test.mjs",
+  "executed": 8,
+  "passed": 8,
+  "failed": 0,
+  "cases": [
+    {
+      "name": "Stationary geometry and initial nulls",
+      "status": "pass"
+    },
+    {
+      "name": "Ten blinks in 30-second deterministic fixture",
+      "status": "pass"
+    },
+    {
+      "name": "Aspect ratio equivalence",
+      "status": "pass"
+    },
+    {
+      "name": "Translation/scale/roll alignment",
+      "status": "pass"
+    },
+    {
+      "name": "Missing-face discontinuity",
+      "status": "pass"
+    },
+    {
+      "name": "Invalid/degenerate/duplicate input",
+      "status": "pass"
+    },
+    {
+      "name": "Long gaps and prolonged closures",
+      "status": "pass"
+    },
+    {
+      "name": "All 21 standard IDs and required keys",
+      "status": "pass"
+    }
+  ]
+}

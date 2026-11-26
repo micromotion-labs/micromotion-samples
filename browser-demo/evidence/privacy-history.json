@@ -1,0 +1,18 @@
+{
+  "worktree_scan": "See static-audit.json; identity markers themselves are kept outside this repository.",
+  "historical_commits_examined_before_demo_commit": 1,
+  "historical_identity_issues": [
+    {
+      "commit": "020658bc1603d7591c03a1baf04eba9ed25a9c76",
+      "classification": "pre-existing personal email in Git commit metadata",
+      "details_redacted": true
+    }
+  ],
+  "new_commit_identity": {
+    "name": "MicroMotion Labs",
+    "email": "micromotion-labs@users.noreply.github.com"
+  },
+  "history_rewritten": false,
+  "reason": "Local history rewrite requires the pending user authorization. Existing commit preserved; no push performed.",
+  "boundary": "Zero hits applies to repository worktree contents, not pre-existing Git history."
+}

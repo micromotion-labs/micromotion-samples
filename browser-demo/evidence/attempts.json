@@ -1,0 +1,304 @@
+{
+  "browser_runs": [
+    {
+      "attempt": 1,
+      "executed": 12,
+      "passed": 11,
+      "failed": 1,
+      "failure_class": "test_fixture",
+      "failure": "Hidden-page camera test timed out: reused stopped canvas produced no new video frame.",
+      "resolution": "Use a newly painted canvas stream for each capture.",
+      "raw_results": [
+        {
+          "name": "Local model, SIMD WASM and real blank-frame inference initialize",
+          "status": "pass",
+          "milliseconds": 1448,
+          "detail": {
+            "initialization_requests": [
+              "/browser-demo/",
+              "/browser-demo/style.css",
+              "/browser-demo/app.mjs",
+              "/browser-demo/vendor/mediapipe/vision_bundle.mjs",
+              "/browser-demo/metrics.mjs",
+              "/browser-demo/sample.mjs",
+              "/browser-demo/report.mjs",
+              "/browser-demo/standard-21.json",
+              "/browser-demo/vendor/mediapipe/models/face_landmarker.task",
+              "/browser-demo/vendor/mediapipe/wasm/vision_wasm_internal.js",
+              "/browser-demo/vendor/mediapipe/wasm/vision_wasm_internal.wasm"
+            ],
+            "networking_disabled_after_readiness": true
+          }
+        },
+        {
+          "name": "Empty session report and JSON actions are disabled",
+          "status": "pass",
+          "milliseconds": 6,
+          "detail": null
+        },
+        {
+          "name": "Offline sample updates all four metrics and draws time-series traces",
+          "status": "pass",
+          "milliseconds": 6934,
+          "detail": {
+            "first": [
+              "1.980\u00b0 spread",
+              "20.1blinks/min",
+              "-0.146eye widths",
+              "3.113% face width/s"
+            ],
+            "second": [
+              "1.960\u00b0 spread",
+              "18.0blinks/min",
+              "-0.169eye widths",
+              "4.458% face width/s"
+            ],
+            "trace_pixels_present": [
+              true,
+              true,
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "name": "Full 30-second sample stops automatically",
+          "status": "pass",
+          "milliseconds": 23139,
+          "detail": {
+            "frames": "900 frames",
+            "time": "30.0 s tracked"
+          }
+        },
+        {
+          "name": "Report contains four measured proxies and all 21 unavailable SDK slots",
+          "status": "pass",
+          "milliseconds": 489,
+          "detail": null
+        },
+        {
+          "name": "JSON download matches the frozen synthetic report and standard contract",
+          "status": "pass",
+          "milliseconds": 68,
+          "detail": {
+            "filename": "micromotion-demo-report.json",
+            "valid_frames": 900,
+            "blink_count": 10,
+            "items": 21
+          }
+        },
+        {
+          "name": "Mobile layout fits 390 px and preserves report readability",
+          "status": "pass",
+          "milliseconds": 377,
+          "detail": null
+        },
+        {
+          "name": "Restart resets readings, report and download availability",
+          "status": "pass",
+          "milliseconds": 114,
+          "detail": null
+        },
+        {
+          "name": "Denied camera permission has an explicit error and no fabricated readings",
+          "status": "pass",
+          "milliseconds": 46,
+          "detail": null
+        },
+        {
+          "name": "Blank video stream traverses real camera inference and stops its track",
+          "status": "pass",
+          "milliseconds": 354,
+          "detail": "Injected blank video only; real MediaPipe inference, no physical webcam or face accuracy claim."
+        },
+        {
+          "name": "Late camera permission resolution cannot override a newer sample session",
+          "status": "pass",
+          "milliseconds": 153,
+          "detail": null
+        },
+        {
+          "name": "Hiding a page stops an active camera stream",
+          "status": "fail",
+          "milliseconds": 30091,
+          "failure_class": "untriaged",
+          "error": "page.waitForFunction: Timeout 30000ms exceeded."
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "executed": 14,
+      "passed": 13,
+      "failed": 1,
+      "failure_class": "test_fixture",
+      "failure": "Non-SIMD test incorrectly overrode WebAssembly.validate; this version probes through instantiate.",
+      "resolution": "Override only the 31-byte SIMD instantiate probe; real non-SIMD inference then passes.",
+      "raw_results": [
+        {
+          "name": "Local model, SIMD WASM and real blank-frame inference initialize",
+          "status": "pass",
+          "milliseconds": 1601,
+          "detail": {
+            "initialization_requests": [
+              "/browser-demo/",
+              "/browser-demo/style.css",
+              "/browser-demo/app.mjs",
+              "/browser-demo/vendor/mediapipe/vision_bundle.mjs",
+              "/browser-demo/metrics.mjs",
+              "/browser-demo/sample.mjs",
+              "/browser-demo/report.mjs",
+              "/browser-demo/standard-21.json",
+              "/browser-demo/vendor/mediapipe/models/face_landmarker.task",
+              "/browser-demo/vendor/mediapipe/wasm/vision_wasm_internal.js",
+              "/browser-demo/vendor/mediapipe/wasm/vision_wasm_internal.wasm"
+            ],
+            "networking_disabled_after_readiness": true
+          }
+        },
+        {
+          "name": "Empty session report and JSON actions are disabled",
+          "status": "pass",
+          "milliseconds": 8,
+          "detail": null
+        },
+        {
+          "name": "Offline sample updates all four metrics and draws time-series traces",
+          "status": "pass",
+          "milliseconds": 7034,
+          "detail": {
+            "first": [
+              "1.982\u00b0 spread",
+              "20.1blinks/min",
+              "-0.147eye widths",
+              "4.138% face width/s"
+            ],
+            "second": [
+              "1.956\u00b0 spread",
+              "18.0blinks/min",
+              "-0.169eye widths",
+              "4.555% face width/s"
+            ],
+            "trace_pixels_present": [
+              true,
+              true,
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "name": "Full 30-second sample stops automatically",
+          "status": "pass",
+          "milliseconds": 23117,
+          "detail": {
+            "frames": "899 frames",
+            "time": "30.0 s tracked"
+          }
+        },
+        {
+          "name": "Report contains four measured proxies and all 21 unavailable SDK slots",
+          "status": "pass",
+          "milliseconds": 642,
+          "detail": null
+        },
+        {
+          "name": "JSON download matches the frozen synthetic report and standard contract",
+          "status": "pass",
+          "milliseconds": 55,
+          "detail": {
+            "filename": "micromotion-demo-report.json",
+            "valid_frames": 899,
+            "blink_count": 10,
+            "items": 21
+          }
+        },
+        {
+          "name": "Mobile layout fits 390 px and preserves report readability",
+          "status": "pass",
+          "milliseconds": 207,
+          "detail": null
+        },
+        {
+          "name": "Restart resets readings, report and download availability",
+          "status": "pass",
+          "milliseconds": 149,
+          "detail": null
+        },
+        {
+          "name": "Denied camera permission has an explicit error and no fabricated readings",
+          "status": "pass",
+          "milliseconds": 76,
+          "detail": null
+        },
+        {
+          "name": "Blank video stream traverses real camera inference and stops its track",
+          "status": "pass",
+          "milliseconds": 201,
+          "detail": "Injected blank video only; real MediaPipe inference, no physical webcam or face accuracy claim."
+        },
+        {
+          "name": "Late camera permission resolution cannot override a newer sample session",
+          "status": "pass",
+          "milliseconds": 116,
+          "detail": null
+        },
+        {
+          "name": "Hiding a page stops an active camera stream",
+          "status": "pass",
+          "milliseconds": 96,
+          "detail": null
+        },
+        {
+          "name": "No post-initialization requests, external requests, page errors or CSP violations",
+          "status": "pass",
+          "milliseconds": 2,
+          "detail": {
+            "post_initialization_requests": 0,
+            "external_requests": 0,
+            "page_errors": 0,
+            "csp_violations": 0
+          }
+        },
+        {
+          "name": "Non-SIMD fallback initializes from vendored assets",
+          "status": "fail",
+          "milliseconds": 1035,
+          "failure_class": "untriaged",
+          "error": "The expression evaluated to a falsy value:\n\n  assert.ok(paths.some(x => x.endsWith('vision_wasm_nosimd_internal.wasm')))\n"
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "executed": 15,
+      "passed": 15,
+      "failed": 0,
+      "raw_results_file": "acceptance.json"
+    }
+  ],
+  "static_runs": [
+    {
+      "attempt": 1,
+      "executed": 5,
+      "passed": 4,
+      "failed": 1,
+      "failure_class": "audit_false_positive",
+      "failure": "Two embedded OpenCV organization help links classified as unreviewed personal account links.",
+      "resolution": "Reviewed and allowed the upstream OpenCV organization; neither string is an application request."
+    },
+    {
+      "attempt": 2,
+      "executed": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    {
+      "attempt": 3,
+      "executed": 5,
+      "purpose": "Final scan including all evidence and six known private identity markers; see static-audit.json"
+    }
+  ],
+  "product_defects_observed": 0,
+  "resolved_test_or_audit_failures": 3
+}

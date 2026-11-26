@@ -1,0 +1,50 @@
+{
+  "final_unique_checks": 28,
+  "unit": {
+    "executed": 8,
+    "passed": 8
+  },
+  "browser": {
+    "executed": 15,
+    "passed": 15
+  },
+  "static": {
+    "executed": 5,
+    "evidence": "static-audit.json"
+  },
+  "browser_case_executions_including_retries": 41,
+  "scope": "Counts cover the named acceptance suites; exploratory smoke checks and source-standard parity inspection are additional.",
+  "coverage": [
+    "Real MediaPipe graph warmup with local SIMD and non-SIMD WASM",
+    "30-second offline synthetic sample; four refreshing metrics and traces",
+    "Frozen 21-slot report and matching JSON download",
+    "Camera denial, blank video inference, pending permission race, track shutdown and hidden-page cleanup",
+    "Model-load failure with explicitly synthetic fallback",
+    "Mobile layout; no external requests or requests after readiness",
+    "All vendor sizes and SHA-256; source standard identity/key parity 21/21",
+    "Known identity markers, personal email domains and account links across entire worktree"
+  ],
+  "uncovered": [
+    "Physical webcam and real-person landmark/metric validity",
+    "Accuracy, calibration, demographic or clinical validation",
+    "Safari, Firefox and physical mobile browsers",
+    "Cross-origin iframe permissions and production hosting",
+    "Pre-existing Git history privacy remediation is pending authorization"
+  ],
+  "failure_classification": {
+    "unresolved_product_defects": 0,
+    "unresolved_test_failures": 0,
+    "resolved_test_fixture_failures": 2,
+    "resolved_static_audit_false_positives": 1,
+    "pre_existing_history_privacy_issues": 1
+  },
+  "reuse": "One MetricSession and one makeReport/renderReport pipeline shared by camera and sample. No framework, no engine source, formulas or calibration copied.",
+  "vendor": {
+    "manifest": "../vendor/asset-manifest.json",
+    "notice": "../vendor/NOTICE.md",
+    "files": 8,
+    "bytes": 26764253
+  },
+  "local_only": true,
+  "push_performed": false
+}

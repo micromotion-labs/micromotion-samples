@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; connect-src 'self'; img-src 'self' data:; media-src 'self' blob:; worker-src 'none'; font-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <meta name="referrer" content="no-referrer">
+  <title>MicroMotion · Browser output demo</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <header><a class="wordmark" href="#top" aria-label="MicroMotion home"><span class="mark">m</span>MicroMotion <span class="lab">/ LABS</span></a><span class="edition">BROWSER DEMO · v1</span></header>
+  <main id="top">
+    <section class="intro">
+      <p class="eyebrow">SMALL MOVEMENTS. VISIBLE SIGNALS.</p>
+      <h1>A closer look<br>at motion.</h1>
+      <p class="lead">Explore four live facial geometry signals, then export a session report. Start with a synthetic sample. No camera required.</p>
+      <p class="boundary"><strong>An output experience demo.</strong> These are uncalibrated demonstration proxies, not SDK parameters or SDK accuracy. The separate MicroMotion SDK runs on device and implements the complete 21-item standard. Its core engine is not included here.</p>
+    </section>
+    <section class="workspace" aria-label="Interactive demo">
+      <div class="viewer-panel">
+        <div class="panel-heading"><h2>Signal source</h2><span id="source-label" class="tag">NO SESSION</span></div>
+        <div class="viewer">
+          <video id="video" autoplay muted playsinline hidden aria-label="Local camera preview"></video>
+          <canvas id="face" width="640" height="480" aria-label="Local face landmark visualization"></canvas>
+          <div id="placeholder"><span class="face-symbol">◌</span><strong>Your session starts here</strong><span>Try a sample or enable your camera.</span></div>
+          <span class="viewer-caption" id="viewer-caption">LOCAL PROCESSING</span>
+        </div>
+        <div class="controls"><button id="sample" class="primary" disabled>Try with sample data</button><button id="camera" disabled>Use camera</button><button id="stop" disabled>Stop</button></div>
+        <p id="status" role="status" aria-live="polite">Loading local model and WASM. No external services are used.</p>
+        <div class="session-line"><span id="session-time">0.0 s tracked</span><span id="frame-count">0 frames</span></div>
+      </div>
+      <div class="signals"><div class="panel-heading"><h2>Demo signals</h2><span class="tag">LIVE · LOCAL</span></div><div id="metrics"></div><p class="signal-note">Traces show the last 120 observations. Scales adapt to each signal; there are no diagnostic thresholds.</p></div>
+    </section>
+    <section class="report-panel" aria-labelledby="report-title">
+      <div class="report-header"><div><p class="eyebrow">FROM SESSION TO OUTPUT</p><h2 id="report-title">A report you can inspect.</h2><p>Four demo metrics, plus all 21 standard slots with explicit availability.</p></div><div class="controls"><button id="generate" class="primary" disabled>Generate session report</button><button id="download" disabled>Download JSON</button></div></div>
+      <div id="report" hidden tabindex="-1"></div>
+      <p id="report-hint">Run a sample or camera session to create a report. Generating a report stops capture and freezes the session.</p>
+    </section>
+    <section class="privacy" aria-labelledby="privacy-title"><div><p class="eyebrow">PRIVATE BY DESIGN</p><h2 id="privacy-title">Your video stays<br>on your device.</h2></div><div><p>Video never leaves your device. Face landmarks are computed locally. After initialization completes, this page makes no network requests. All scripts, WASM and models load from this folder; fonts come from your system.</p><p>There is no analytics, upload, recording, or browser storage. A JSON file is saved only when you choose to download it. Camera access stops when you stop, generate a report, switch to a sample, or hide this page.</p><p class="muted">For research and output exploration. This demo does not infer emotions, health, attention, or identity, and does not produce clinical or psychological assessments.</p></div></section>
+  </main>
+  <footer><span>MicroMotion Labs · Open source browser sample</span><span>LANDMARKS → DEMO METRICS → REPORT</span></footer>
+</body>
+</html>

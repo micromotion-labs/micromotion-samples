@@ -1,0 +1,221 @@
+{
+  "schema_version": "1.0.0",
+  "issued_at": "2026-11-12",
+  "source": "micromotion_21_standard.json",
+  "scope": "Identity metadata only; no SDK computation or interpretation logic.",
+  "required_keys": [
+    "index",
+    "key",
+    "name_cn",
+    "direction",
+    "channel",
+    "raw",
+    "display",
+    "mean",
+    "std",
+    "vi",
+    "vi_reason",
+    "detect_min",
+    "detect_max",
+    "ref_min",
+    "ref_max",
+    "ref_status",
+    "gray_min",
+    "gray_max",
+    "level",
+    "calibration_status",
+    "retest_suggested",
+    "evidence"
+  ],
+  "items": [
+    {
+      "index": 1,
+      "u": "U01",
+      "key": "hostility",
+      "name_cn": "敌对",
+      "direction": "NEG",
+      "channel": "C1",
+      "name_en": "Hostility"
+    },
+    {
+      "index": 2,
+      "u": "U02",
+      "key": "stress",
+      "name_cn": "压力",
+      "direction": "NEG",
+      "channel": "C1",
+      "name_en": "Stress"
+    },
+    {
+      "index": 3,
+      "u": "U03",
+      "key": "anxiety",
+      "name_cn": "焦虑",
+      "direction": "NEG",
+      "channel": "C1",
+      "name_en": "Anxiety"
+    },
+    {
+      "index": 4,
+      "u": "U04",
+      "key": "negative_emotion",
+      "name_cn": "负面情绪",
+      "direction": "NEG",
+      "channel": "C1",
+      "name_en": "Negative emotion"
+    },
+    {
+      "index": 5,
+      "u": "U05",
+      "key": "balance",
+      "name_cn": "平衡",
+      "direction": "NEU",
+      "channel": "C1",
+      "name_en": "Balance"
+    },
+    {
+      "index": 6,
+      "u": "U06",
+      "key": "confidence",
+      "name_cn": "自信",
+      "direction": "POS",
+      "channel": "C1",
+      "name_en": "Confidence"
+    },
+    {
+      "index": 7,
+      "u": "U07",
+      "key": "vitality",
+      "name_cn": "活力",
+      "direction": "POS",
+      "channel": "C1",
+      "name_en": "Vitality"
+    },
+    {
+      "index": 8,
+      "u": "U08",
+      "key": "self_regulation",
+      "name_cn": "自我调节",
+      "direction": "POS",
+      "channel": "C1",
+      "name_en": "Self-regulation"
+    },
+    {
+      "index": 9,
+      "u": "U09",
+      "key": "inhibition",
+      "name_cn": "抑制",
+      "direction": "POS",
+      "channel": "C1",
+      "name_en": "Inhibition"
+    },
+    {
+      "index": 10,
+      "u": "U10",
+      "key": "emotional_stability",
+      "name_cn": "情绪稳定性",
+      "direction": "POS",
+      "channel": "C1",
+      "name_en": "Emotional stability"
+    },
+    {
+      "index": 11,
+      "u": "U11",
+      "key": "dejection",
+      "name_cn": "消沉",
+      "direction": "NEG",
+      "channel": "C1",
+      "name_en": "Dejection"
+    },
+    {
+      "index": 12,
+      "u": "U12",
+      "key": "self_satisfaction",
+      "name_cn": "自我满意度",
+      "direction": "POS",
+      "channel": "C1",
+      "name_en": "Self-satisfaction"
+    },
+    {
+      "index": 13,
+      "u": "U13",
+      "key": "brain_health",
+      "name_cn": "脑健康",
+      "direction": "NEU",
+      "channel": "C1",
+      "name_en": "Brain health"
+    },
+    {
+      "index": 14,
+      "u": "U14",
+      "key": "concentration",
+      "name_cn": "集中度",
+      "direction": "POS",
+      "channel": "C1",
+      "name_en": "Concentration"
+    },
+    {
+      "index": 15,
+      "u": "U15",
+      "key": "activity_level",
+      "name_cn": "活力度",
+      "direction": "NEU",
+      "channel": "C2",
+      "name_en": "Activity level"
+    },
+    {
+      "index": 16,
+      "u": "U16",
+      "key": "ie_correlation",
+      "name_cn": "IE 相关性",
+      "direction": "NEU",
+      "channel": "C3",
+      "name_en": "IE correlation"
+    },
+    {
+      "index": 17,
+      "u": "U17",
+      "key": "teacher_internal_A17",
+      "name_cn": "内部编号 A17",
+      "direction": "RAW",
+      "channel": "C2",
+      "name_en": "Internal A17"
+    },
+    {
+      "index": 18,
+      "u": "U18",
+      "key": "teacher_internal_A18",
+      "name_cn": "内部编号 A18",
+      "direction": "RAW",
+      "channel": "C2",
+      "name_en": "Internal A18"
+    },
+    {
+      "index": 19,
+      "u": "U19",
+      "key": "teacher_internal_A22",
+      "name_cn": "内部编号 A22",
+      "direction": "RAW",
+      "channel": "C2",
+      "name_en": "Internal A22"
+    },
+    {
+      "index": 20,
+      "u": "U20",
+      "key": "teacher_internal_A23",
+      "name_cn": "内部编号 A23",
+      "direction": "RAW",
+      "channel": "C2",
+      "name_en": "Internal A23"
+    },
+    {
+      "index": 21,
+      "u": "U21",
+      "key": "teacher_internal_A24",
+      "name_cn": "内部编号 A24",
+      "direction": "RAW",
+      "channel": "C2",
+      "name_en": "Internal A24"
+    }
+  ]
+}
