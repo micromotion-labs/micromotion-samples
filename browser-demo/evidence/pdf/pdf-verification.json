@@ -1,37 +1,37 @@
 {
-  "pages": 6,
-  "section_titles": 8,
-  "proxy_values_compared": 4,
-  "proxy_statistics_compared": 16,
-  "proxy_interpretations_compared": 4,
-  "session_fields_compared": 8,
-  "sdk_rows": 21,
-  "sdk_names_compared": 21,
-  "sdk_ranges_compared": 21,
-  "source_standard_rows_compared": 21,
-  "sdk_uncomputed_results": 21,
-  "footers": 6,
-  "text_spans_within_page_bounds": 231,
-  "brand_and_sample_scans": {
-    "brands": {
-      "terms": 9,
-      "hits": 0
+    "pages": 6,
+    "section_titles": 13,
+    "proxy_values_compared": 4,
+    "proxy_statistics_compared": 12,
+    "proxy_interpretations_compared": 4,
+    "session_fields_compared": 8,
+    "sdk_rows": 21,
+    "sdk_names_compared": 21,
+    "sdk_ranges_compared": 21,
+    "source_standard_rows_compared": 21,
+    "sdk_uncomputed_results": 21,
+    "footers": 6,
+    "text_spans_within_page_bounds": 430,
+    "brand_and_sample_scans": {
+        "brands": {
+            "terms": 9,
+            "hits": 0
+        },
+        "private_identity": {
+            "terms": 3,
+            "hits": 0
+        },
+        "sample_identity": {
+            "terms": 10,
+            "hits": 0
+        },
+        "sample_distinct_decimal_values": {
+            "terms": 51,
+            "hits": 0
+        }
     },
-    "private_identity": {
-      "terms": 3,
-      "hits": 0
-    },
-    "sample_identity": {
-      "terms": 10,
-      "hits": 0
-    },
-    "sample_distinct_decimal_values": {
-      "terms": 51,
-      "hits": 0
-    }
-  },
-  "active_content": 0,
-  "metadata_unbranded": true,
-  "pdf_bytes": 10947,
-  "parser": "PyMuPDF 2.2"
+    "active_content": 0,
+    "metadata_unbranded": true,
+    "pdf_bytes": 31537,
+    "parser": "PyMuPDF 2.2"
 }

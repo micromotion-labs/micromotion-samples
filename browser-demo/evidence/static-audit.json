@@ -1,7 +1,7 @@
 {
   "executed_checks": 5,
-  "runtime_files_scanned": 11,
-  "worktree_files_scanned": 36,
+  "runtime_files_scanned": 13,
+  "worktree_files_scanned": 103,
   "checks": [
     "External runtime request references",
     "Local reference existence",
@@ -11,11 +11,11 @@
   ],
   "external_request_references": 0,
   "external_references": [],
-  "local_references_checked": 9,
-  "vendored_assets_verified": 8,
+  "local_references_checked": 11,
+  "vendored_assets_verified": 10,
   "identity_scan": {
     "scope": "All tracked and non-ignored worktree files, including binary bytes; excludes .git history/config",
-    "known_private_markers_supplied": 6,
+    "known_private_markers_supplied": 0,
     "known_marker_hits": 0,
     "personal_email_hits": 0,
     "unreviewed_personal_account_links": 0

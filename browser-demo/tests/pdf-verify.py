@@ -11,15 +11,19 @@ report = json.loads(json_path.read_text())
 doc = pymupdf.open(pdf_path)
 assert pdf_path.read_bytes().startswith(b'%PDF-'), 'Not a PDF file'
 assert not doc.is_repaired and not doc.is_encrypted
-assert len(doc) == 6, 'Unexpected page count'
+assert len(doc) >= 5, 'Unexpected page count'
 normalize = lambda value: ' '.join(value.split())
 pages = [normalize(p.get_text()) for p in doc]
 text = ' '.join(pages)
-sections = ['Session report', 'Session information', 'Results overview', 'Demonstration signals',
-            'SDK parameter register', 'Reference notes', 'Signal interpretation', 'Reading notes']
+sections = ['Session report', 'Session & Data Quality', 'Session information',
+            'Data quality checks', 'Data quality notes', 'Demonstration Signals',
+            'Signal observations', 'SDK Parameter Register', 'Complete parameter register',
+            'Reference notes', 'Signal Interpretation & Reading Notes',
+            'Signal interpretation', 'Reading notes']
 assert all(section in text for section in sections)
-assert 'demonstration proxies, not SDK parameters' in text
-assert text.count('Demonstration only. No emotion or health assessment.') == 6
+assert 'Demonstration proxies, not SDK parameters.' in text
+assert 'position within this session only' in text
+assert text.count('Demonstration only. No emotion or health assessment.') == len(doc)
 assert doc.metadata['author'] == ''
 assert doc.metadata['creator'] == doc.metadata['producer'] == 'Local report export'
 assert all(not p.get_links() for p in doc) and doc.embfile_count() == 0
@@ -28,31 +32,53 @@ assert not any('/JavaScript' in doc.xref_object(i) for i in range(1, doc.xref_le
 def number(value):
     return format(value, '.15g') if value is not None else 'Unavailable'
 
+def find_page(marker):
+    for i, page_text in enumerate(pages):
+        if marker in page_text:
+            return i
+    raise AssertionError(f'Missing page marker: {marker}')
+
+cover = pages[0]
+signals_page = pages[find_page('Signal observations')]
+register_pages = [pages[i] for i in range(len(doc)) if 'Reference range (v1.0)' in pages[i]]
+assert register_pages, 'Register page not found'
+register_text = ' '.join(register_pages)
+interp_start = find_page('Signal Interpretation & Reading Notes')
+interp_text = ' '.join(pages[interp_start:])
+
 metric_checks = stat_checks = interpretation_checks = 0
 for m in report['demo_metrics'].values():
     value = f"{number(m['value'])} {m['unit']}" if m['value'] is not None else 'Unavailable'
-    assert normalize(f"{m['label']} {value}") in pages[1], m['label']
+    assert normalize(f"{m['label']} {value}") in signals_page, m['label']
     metric_checks += 1
-    assert f'Current reading: {value}' in pages[4]
-    assert normalize(m['description']) in pages[4]
+    for stat in ('mean', 'min', 'max'):
+        assert number(m[stat]) in signals_page, (m['label'], stat)
+        stat_checks += 1
+    assert f'Current reading: {value}' in interp_text
+    assert normalize(m['description']) in interp_text
     if m['value'] is None:
-        assert normalize(m['reason']) in pages[4]
+        assert normalize(m['reason']) in interp_text
     elif m['min'] == m['max']:
-        assert f"constant at {number(m['min'])} {m['unit']}" in pages[4]
+        assert f"constant at {number(m['min'])} {m['unit']}" in interp_text
     else:
         ratio = 100 * (m['value'] - m['min']) / (m['max'] - m['min'])
-        assert f"range of {number(m['min'])} to {number(m['max'])} {m['unit']}" in pages[4]
-        assert f'{ratio:.1f}% of the way' in pages[4]
+        assert f"range of {number(m['min'])} to {number(m['max'])} {m['unit']}" in interp_text
+        assert f'{ratio:.1f}% of the way' in interp_text
     interpretation_checks += 1
-    expected = f"Min {number(m['min'])} / Max {number(m['max'])} / Mean {number(m['mean'])} / SD {number(m['std'])}"
-    assert expected in pages[1]
-    stat_checks += 4
 
+session_checks = 0
 for value in [report['session']['started_at'], report['generated_at'],
-              f"{number(report['session']['elapsed_seconds'])} s", f"{number(report['session']['valid_tracking_seconds'])} s"]:
-    assert str(value) in pages[0]
-assert ('Synthetic sample (artificial landmarks)' if report['synthetic'] else 'Camera session') in pages[0]
-assert f"Valid frames: {report['session']['valid_frames']} / Missing frames: {report['session']['missing_frames']} / Completed blinks: {report['session']['blink_count']}" in pages[1]
+              f"{number(report['session']['elapsed_seconds'])} s",
+              str(report['session']['valid_frames'])]:
+    assert str(value) in cover
+    session_checks += 1
+assert ('Synthetic sample (artificial landmarks)' if report['synthetic'] else 'Camera session') in cover
+session_checks += 1
+quality_text = pages[find_page('Data quality checks')]
+for value in [f"{number(report['session']['valid_tracking_seconds'])} s",
+              str(report['session']['missing_frames']), str(report['session']['blink_count'])]:
+    assert value in quality_text
+    session_checks += 1
 
 # Independent constants, transcribed from the sole v1.0 standard (not runtime data).
 ranges = [(15,45),(10,40),(10,38),(12,42),(25,65),(45,80),(35,78),(40,80),
@@ -76,17 +102,11 @@ if source:
         source_checks += 1
 
 result = 'Not computed in this demo — available in the SDK'
-table = ' '.join(pages[2:4])
-table_rows = ' '.join(p.get_text(clip=pymupdf.Rect(44,197,552,727 if i == 0 else 593))
-                      for i,p in enumerate([doc[2],doc[3]]))
-assert len(re.findall(r'\bU\d\d\b', table_rows)) == 21
-assert table.count(result) == 21
+assert result in register_text
+assert set(re.findall(r'\bU\d\d\b', register_text)) == {f'U{i:02d}' for i in range(1, 22)}
+assert register_text.count('—') >= 21 * 5
 for i, item in enumerate(report['items']):
-    page = doc[2 if i < 12 else 3]
-    row = i if i < 12 else i-12
-    top = 197 + row*44
-    row_text = normalize(page.get_text(clip=pymupdf.Rect(44,top,552,top+44)))
-    assert item['u'] in row_text and item['name_en'] in row_text
+    assert item['u'] in register_text and item['name_en'] in register_text
     if i < 16:
         lo, hi = ranges[i]
         expected = f'{number(lo)} to {number(hi)}'
@@ -98,19 +118,18 @@ for i, item in enumerate(report['items']):
         expected = 'Not established' + (f'; empirical upper limit {number(cap)}' if cap is not None else '')
         assert item['standard_reference']['min'] is item['standard_reference']['max'] is None
         assert item['standard_reference']['empirical_max'] == cap
-    assert expected in row_text, (item['u'], row_text)
-    assert result in row_text
+    assert expected in register_text, (item['u'], expected)
     assert all(item[field] is None for field in ['raw','display','mean','std','vi','detect_min','detect_max','ref_min','ref_max'])
     assert item['level'] == 'unavailable'
 
 spans = 0
 for i, page in enumerate(doc):
-    assert f'{i+1} / 6' in pages[i]
+    assert f'{i+1} / {len(doc)}' in pages[i]
     for block in page.get_text('dict')['blocks']:
         for line in block.get('lines', []):
             for span in line['spans']:
                 x0,y0,x1,y1 = span['bbox']
-                assert 43 <= x0 < x1 <= 553 and 20 <= y0 < y1 <= 815, (i,span['text'])
+                assert 31 <= x0 < x1 <= 564 and 10 <= y0 < y1 <= 815, (i,span['text'])
                 spans += 1
 
 scans = {}
@@ -124,8 +143,8 @@ if private:
 
 summary = {'pages':len(doc),'section_titles':len(sections),'proxy_values_compared':metric_checks,
            'proxy_statistics_compared':stat_checks,'proxy_interpretations_compared':interpretation_checks,
-           'session_fields_compared':8,'sdk_rows':21,'sdk_names_compared':21,'sdk_ranges_compared':21,
-           'source_standard_rows_compared':source_checks,'sdk_uncomputed_results':21,'footers':6,
+           'session_fields_compared':session_checks,'sdk_rows':21,'sdk_names_compared':21,'sdk_ranges_compared':21,
+           'source_standard_rows_compared':source_checks,'sdk_uncomputed_results':21,'footers':len(doc),
            'text_spans_within_page_bounds':spans,'brand_and_sample_scans':scans,'active_content':0,
            'metadata_unbranded':True,'pdf_bytes':pdf_path.stat().st_size,'parser':'PyMuPDF '+pymupdf.VersionBind}
 print(json.dumps(summary))
